@@ -12,6 +12,7 @@ import {
   JSONValue,
 } from '../../../../types';
 import { CellContainer, CellLink } from '../../../../admin-ui/components';
+import { i18nLang } from '../../../../lang/main';
 
 export const Field = ({
   field,
@@ -48,7 +49,7 @@ export const Field = ({
         />
         {forceValidation && (
           <Text color="red600" size="small">
-            {'Invalid JSON'}
+            {`${i18nLang.Fields.Components.Json.Views.Index.Invalid} JSON`}
           </Text>
         )}
       </Stack>

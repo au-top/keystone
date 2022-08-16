@@ -1,0 +1,1 @@
+export { DefaultConfig as K6Config } from "./define-const/default";

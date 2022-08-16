@@ -31,6 +31,7 @@ import { SortSelection } from './SortSelection';
 import { useFilters } from './useFilters';
 import { useSelectedFields } from './useSelectedFields';
 import { useSort } from './useSort';
+import { i18nLang } from '../../../../lang/main';
 
 type ListPageProps = { listKey: string };
 
@@ -244,7 +245,7 @@ const ListPage = ({ listKey }: ListPageProps) => {
     <PageContainer header={<ListPageHeader listKey={listKey} />} title={list.label}>
       {metaQuery.error ? (
         // TODO: Show errors nicely and with information
-        'Error...'
+        `${i18nLang.AdminUIPages.ListPage.Index.Error}...`
       ) : data && metaQuery.data ? (
         <Fragment>
           {list.description !== null && (
@@ -258,7 +259,7 @@ const ListPage = ({ listKey }: ListPageProps) => {
             {filters.filters.length ? <FilterList filters={filters.filters} list={list} /> : null}
             {Boolean(filters.filters.length || query.sortBy || query.fields) && (
               <Button size="small" onClick={resetToDefaults}>
-                Reset to defaults
+                {i18nLang.AdminUIPages.ListPage.Index.ResetToDefaults}
               </Button>
             )}
           </Stack>
@@ -272,7 +273,8 @@ const ListPage = ({ listKey }: ListPageProps) => {
                     return (
                       <Fragment>
                         <span css={{ marginRight: theme.spacing.small }}>
-                          Selected {selectedItemsCount} of {data.items.length}
+                          {i18nLang.AdminUIPages.ListPage.Index.Selected} {selectedItemsCount} of{' '}
+                          {data.items.length}
                         </span>
                         {!(metaQuery.data?.keystone.adminMeta.list?.hideDelete ?? true) && (
                           <DeleteManyButton
@@ -293,14 +295,19 @@ const ListPage = ({ listKey }: ListPageProps) => {
                         singular={list.singular}
                         total={data.count}
                       />
-                      , sorted by <SortSelection list={list} orderableFields={orderableFields} />
-                      with{' '}
+                      , {i18nLang.AdminUIPages.ListPage.Index.SortedBy}{' '}
+                      <SortSelection list={list} orderableFields={orderableFields} />
+                      {i18nLang.AdminUIPages.ListPage.Index.With}{' '}
                       <FieldSelection
                         list={list}
                         fieldModesByFieldPath={listViewFieldModesByField}
                       />{' '}
                       {loading && (
-                        <LoadingDots label="Loading item data" size="small" tone="active" />
+                        <LoadingDots
+                          label={i18nLang.AdminUIPages.ListPage.Index.LoadingItemData}
+                          size="small"
+                          tone="active"
+                        />
                       )}
                     </Fragment>
                   );
@@ -325,12 +332,19 @@ const ListPage = ({ listKey }: ListPageProps) => {
               />
             </Fragment>
           ) : (
-            <ResultsSummaryContainer>No {list.plural} found.</ResultsSummaryContainer>
+            <ResultsSummaryContainer>
+              {i18nLang.AdminUIPages.ListPage.Index.No} {list.plural}{' '}
+              {i18nLang.AdminUIPages.ListPage.Index.Found}.
+            </ResultsSummaryContainer>
           )}
         </Fragment>
       ) : (
         <Center css={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
-          <LoadingDots label="Loading item data" size="large" tone="passive" />
+          <LoadingDots
+            label={i18nLang.AdminUIPages.ListPage.Index.LoadingItemData}
+            size="large"
+            tone="passive"
+          />
         </Center>
       )}
     </PageContainer>
@@ -355,7 +369,7 @@ const CreateButton = ({ listKey }: { listKey: string }) => {
         size="small"
         weight="bold"
       >
-        Create {list.singular}
+        {i18nLang.AdminUIPages.ListPage.Index.Create} {list.singular}
       </Button>
     </Fragment>
   );
@@ -450,16 +464,16 @@ function DeleteManyButton({
           setIsOpen(true);
         }}
       >
-        Delete
+        {i18nLang.AdminUIPages.ListPage.Index.Delete}
       </Button>
       <AlertDialog
         // TODO: change the copy in the title and body of the modal
         isOpen={isOpen}
-        title="Delete Confirmation"
+        title={i18nLang.AdminUIPages.ListPage.Index.DeleteConfirmation}
         tone="negative"
         actions={{
           confirm: {
-            label: 'Delete',
+            label: i18nLang.AdminUIPages.ListPage.Index.Delete,
             action: async () => {
               const { data, errors } = await deleteItems({
                 variables: { where: [...selectedItems].map(id => ({ id })) },
@@ -505,7 +519,9 @@ function DeleteManyButton({
                 // Reduce error messages down to unique instances, and append to the toast as a message.
                 toasts.addToast({
                   tone: 'negative',
-                  title: `Failed to delete ${unsuccessfulItems} of ${
+                  title: `${
+                    i18nLang.AdminUIPages.ListPage.Index.FailedToDelete
+                  } ${unsuccessfulItems} ${i18nLang.AdminUIPages.ListPage.Index.Of} ${
                     data[list.gqlNames.deleteManyMutationName].length
                   } ${list.plural}`,
                   message: errors
@@ -522,9 +538,11 @@ function DeleteManyButton({
               if (successfulItems) {
                 toasts.addToast({
                   tone: 'positive',
-                  title: `Deleted ${successfulItems} of ${
-                    data[list.gqlNames.deleteManyMutationName].length
-                  } ${list.plural} successfully`,
+                  title: `${i18nLang.AdminUIPages.ListPage.Index.Delete} ${successfulItems} ${
+                    i18nLang.AdminUIPages.ListPage.Index.Of
+                  } ${data[list.gqlNames.deleteManyMutationName].length} ${list.plural} ${
+                    i18nLang.AdminUIPages.ListPage.Index.Successfully
+                  }`,
                   message: successMessage,
                 });
               }
@@ -533,14 +551,14 @@ function DeleteManyButton({
             },
           },
           cancel: {
-            label: 'Cancel',
+            label: i18nLang.AdminUIPages.ListPage.Index.Cancel,
             action: () => {
               setIsOpen(false);
             },
           },
         }}
       >
-        Are you sure you want to delete {selectedItems.size}{' '}
+        {i18nLang.AdminUIPages.ListPage.Index.AreYouSureYouWantToDelete} {selectedItems.size}{' '}
         {selectedItems.size === 1 ? list.singular : list.plural}?
       </AlertDialog>
     </Fragment>
@@ -577,7 +595,9 @@ function ListTable({
   return (
     <Box paddingBottom="xlarge">
       <TableContainer>
-        <VisuallyHidden as="caption">{list.label} list</VisuallyHidden>
+        <VisuallyHidden as="caption">
+          {list.label} {i18nLang.AdminUIPages.ListPage.Index.List}
+        </VisuallyHidden>
         <colgroup>
           <col width="30" />
           {shouldShowLinkIcon && <col width="30" />}

@@ -8,6 +8,7 @@ import { graphql } from '../../..';
 import { resolveView } from '../../resolve-view';
 import { getResolvedIsNullable } from '../../non-null-graphql';
 import { PasswordFieldMeta } from './views';
+import { i18nLang } from '../../../lang/main';
 
 export type PasswordFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> & {
@@ -124,28 +125,34 @@ export const password =
             args.resolvedData[meta.fieldKey] === null &&
             (validation?.isRequired || isNullable === false)
           ) {
-            args.addValidationError(`${fieldLabel} is required`);
+            args.addValidationError(
+              `${fieldLabel} ${i18nLang.Fields.Components.Password.Index.IsRequired}`
+            );
           }
           if (val != null) {
             if (val.length < validation.length.min) {
               if (validation.length.min === 1) {
-                args.addValidationError(`${fieldLabel} must not be empty`);
+                args.addValidationError(
+                  `${fieldLabel} ${i18nLang.Fields.Components.Password.Index.MustNotBeEmpty}`
+                );
               } else {
                 args.addValidationError(
-                  `${fieldLabel} must be at least ${validation.length.min} characters long`
+                  `${fieldLabel} ${i18nLang.Fields.Components.Password.Index.MustBeAtLeast} ${validation.length.min} ${i18nLang.Fields.Components.Password.Index.CharactersLong}`
                 );
               }
             }
             if (validation.length.max !== null && val.length > validation.length.max) {
               args.addValidationError(
-                `${fieldLabel} must be no longer than ${validation.length.max} characters`
+                `${fieldLabel} ${i18nLang.Fields.Components.Password.Index.MustBeNoLongerThan} ${validation.length.max} ${i18nLang.Fields.Components.Password.Index.Characters}`
               );
             }
             if (validation.match && !validation.match.regex.test(val)) {
               args.addValidationError(validation.match.explanation);
             }
             if (validation.rejectCommon && dumbPasswords.check(val)) {
-              args.addValidationError(`${fieldLabel} is too common and is not allowed`);
+              args.addValidationError(
+                `${fieldLabel} ${i18nLang.Fields.Components.Password.Index.IsTooCommonAndIsNotAllowed}`
+              );
             }
           }
 
@@ -160,7 +167,9 @@ export const password =
                 arg: graphql.arg({ type: PasswordFilter }),
                 resolve(val) {
                   if (val === null) {
-                    throw userInputError('Password filters cannot be set to null');
+                    throw userInputError(
+                      i18nLang.Fields.Components.Password.Index.PasswordFiltersCannotBeSetToNull
+                    );
                   }
                   if (val.isSet) {
                     return {

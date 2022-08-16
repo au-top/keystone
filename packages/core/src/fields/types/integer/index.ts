@@ -14,6 +14,7 @@ import {
   getResolvedIsNullable,
 } from '../../non-null-graphql';
 import { resolveView } from '../../resolve-view';
+import { i18nLang } from '../../../lang/main';
 
 export type IntegerFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> & {
@@ -143,13 +144,13 @@ export const integer =
           if (typeof value === 'number') {
             if (validation?.min !== undefined && value < validation.min) {
               args.addValidationError(
-                `${fieldLabel} must be greater than or equal to ${validation.min}`
+                `${fieldLabel} ${i18nLang.Fields.Components.Integer.Index.MustBeGreaterThanOrEqualTo} ${validation.min}`
               );
             }
 
             if (validation?.max !== undefined && value > validation.max) {
               args.addValidationError(
-                `${fieldLabel} must be less than or equal to ${validation.max}`
+                `${fieldLabel} ${i18nLang.Fields.Components.Integer.Index.MustBeLessThanOrEqualTo} ${validation.max}`
               );
             }
           }

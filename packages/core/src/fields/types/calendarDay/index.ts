@@ -14,6 +14,7 @@ import {
   getResolvedIsNullable,
 } from '../../non-null-graphql';
 import { resolveView } from '../../resolve-view';
+import { i18nLang } from '../../../lang/main';
 import { CalendarDayFieldMeta } from './views';
 
 export type CalendarDayFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
@@ -93,7 +94,9 @@ export const calendarDay =
         async validateInput(args) {
           const value = args.resolvedData[meta.fieldKey];
           if ((validation?.isRequired || resolvedIsNullable === false) && value === null) {
-            args.addValidationError(`${fieldLabel} is required`);
+            args.addValidationError(
+              `${fieldLabel} ${i18nLang.Fields.Components.CalendarDay.Index.IsRequired}`
+            );
           }
 
           await config.hooks?.validateInput?.(args);

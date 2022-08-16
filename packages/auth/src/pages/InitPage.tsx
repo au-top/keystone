@@ -25,6 +25,7 @@ import { guessEmailFromValue, validEmail } from '../lib/emailHeuristics';
 import { IconTwitter, IconGithub } from '../components/Icons';
 import { SigninContainer } from '../components/SigninContainer';
 import { useRedirect } from '../lib/useFromRedirect';
+import { i18nLang, K6Config } from '@keystone-6/core';
 
 const signupURL = 'https://signup.keystonejs.cloud/api/newsletter-signup';
 
@@ -96,7 +97,7 @@ const Welcome = ({ value }: { value: any }) => {
           justifyContent: 'space-between',
         }}
       >
-        <H1>Welcome</H1>
+        <H1>{i18nLang.Auth.Pages.InitPage.Welcome}</H1>
         <Stack across gap="small">
           <IconTwitter title="Twitter Logo" />
           <IconGithub
@@ -108,12 +109,16 @@ const Welcome = ({ value }: { value: any }) => {
       </Stack>
 
       <p css={{ margin: 0 }}>
-        Thanks for installing KeystoneJS. While you're getting started, check out the docs at{' '}
+        {i18nLang.Auth.Pages.InitPage.ThanksForInstalling}
+        {K6Config.DefineConfig.AppName}
+        {i18nLang.Auth.Pages.InitPage.WhileYouReGettingStartedCheckOutTheDocsAt}{' '}
         <a href="https://keystonejs.com">keystonejs.com</a>
       </p>
       <div>
-        If you'd like to stay up to date with the exciting things we have planned, join our mailing
-        list (just useful announcements, no spam!)
+        {
+          i18nLang.Auth.Pages.InitPage
+            .IfYouDLikeToStayUpToDateWithTheExcitingThingsWeHavePlannedJoinOurMailingListJustUsefulAnnouncementsNoSpam
+        }
       </div>
       <div>
         <Checkbox
@@ -123,12 +128,12 @@ const Welcome = ({ value }: { value: any }) => {
             setSubscribe(!subscribe);
           }}
         >
-          sign up to our mailing list
+          {i18nLang.Auth.Pages.InitPage.SignUpToOurMailingList}
         </Checkbox>
       </div>
       <form onSubmit={onSubmit}>
         <VisuallyHidden as="label" htmlFor="email-field">
-          Email Address
+          {i18nLang.Auth.Pages.InitPage.EmailAddress}
         </VisuallyHidden>
         <TextInput
           id="email-field"
@@ -141,11 +146,11 @@ const Welcome = ({ value }: { value: any }) => {
         <p css={{ color: 'red' }}>{error}</p>
         <Inline gap="medium" align="center">
           <Button isLoading={loading} type={'submit'} weight="bold" tone="active">
-            {error ? 'Try again' : 'Continue'}
+            {error ? i18nLang.Auth.Pages.InitPage.TryAgain : i18nLang.Auth.Pages.InitPage.Continue}
           </Button>
           {error && (
             <Button as={Link} href={'/'} tone="active">
-              Continue
+              {i18nLang.Auth.Pages.InitPage.Continue}
             </Button>
           )}
         </Inline>
@@ -222,15 +227,17 @@ const InitPage = ({ fieldPaths, listKey, enableWelcome }: InitPageProps) => {
   if (rawKeystone.authenticatedItem.state === 'authenticated' && !enableWelcome) {
     return (
       <Center fillView>
-        <LoadingDots label="Loading page" size="large" />
+        <LoadingDots label={i18nLang.Auth.Pages.InitPage.LoadingPage} size="large" />
       </Center>
     );
   }
 
   return mode === 'init' ? (
-    <SigninContainer title="Welcome to KeystoneJS">
-      <H1>Welcome to KeystoneJS</H1>
-      <p>Create your first user to get started</p>
+    <SigninContainer title={i18nLang.Auth.Pages.InitPage.WelcomeTo + K6Config.DefineConfig.AppName}>
+      <H1>
+        {i18nLang.Auth.Pages.InitPage.WelcomeTo} {}
+      </H1>
+      <p>{i18nLang.Auth.Pages.InitPage.CreateYourFirstUserToGetStarted}</p>
       <form
         onSubmit={event => {
           event.preventDefault();
@@ -288,7 +295,7 @@ const InitPage = ({ fieldPaths, listKey, enableWelcome }: InitPageProps) => {
             weight="bold"
             tone="active"
           >
-            Get started
+            {i18nLang.Auth.Pages.InitPage.GetStarted}
           </Button>
         </Stack>
       </form>

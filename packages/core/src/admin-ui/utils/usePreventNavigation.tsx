@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { i18nLang } from '../../lang/main';
 import { useRouter } from '../router';
 
 export function usePreventNavigation(shouldPreventNavigationRef: { current: boolean }) {
@@ -8,7 +9,7 @@ export function usePreventNavigation(shouldPreventNavigationRef: { current: bool
     const clientSideRouteChangeHandler = () => {
       if (
         shouldPreventNavigationRef.current &&
-        !window.confirm('There are unsaved changes, are you sure you want to exit?')
+        !window.confirm(i18nLang.AdminUIUtils.UsePreventNavigation.ThereAreUnsavedChangesAreYouSureYouWantToExit)
       ) {
         // throwing from here seems to be the only way to prevent the navigation
         // we're throwing just a string here rather than an error because throwing an error

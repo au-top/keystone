@@ -18,6 +18,7 @@ import {
 import { gql, useMutation } from '../../../../../admin-ui/apollo';
 import { GraphQLErrorNotice } from '../../../../../admin-ui/components';
 import { useFieldsObj } from './useItemState';
+import { i18nLang } from '../../../../../lang/main';
 
 export function InlineEdit({
   fields,
@@ -90,7 +91,8 @@ export function InlineEdit({
             const error = errors?.find(x => x.path?.length === 1);
             if (error) {
               toasts.addToast({
-                title: 'Failed to update item',
+                title:
+                  i18nLang.Fields.Components.Relationship.Views.Cards.InlineEdit.FailedToUpdateItem,
                 tone: 'negative',
                 message: error.message,
               });
@@ -98,14 +100,15 @@ export function InlineEdit({
               toasts.addToast({
                 title: data.item[list.labelField] || data.item.id,
                 tone: 'positive',
-                message: 'Saved successfully',
+                message: i18nLang.Fields.Components.Relationship.Views.Cards.InlineEdit.SavedSuccessfully,
               });
               onSave(makeDataGetter(data, errors).get('item'));
             }
           })
           .catch(err => {
             toasts.addToast({
-              title: 'Failed to update item',
+              title:
+                i18nLang.Fields.Components.Relationship.Views.Cards.InlineEdit.FailedToUpdateItem,
               tone: 'negative',
               message: err.message,
             });
@@ -136,10 +139,10 @@ export function InlineEdit({
         />
         <Stack across gap="small">
           <Button isLoading={loading} weight="bold" size="small" tone="active" type="submit">
-            Save
+            {i18nLang.Fields.Components.Relationship.Views.Cards.InlineEdit.Save}
           </Button>
           <Button size="small" weight="none" onClick={onCancel}>
-            Cancel
+            {i18nLang.Fields.Components.Relationship.Views.Cards.InlineEdit.Cancel}
           </Button>
         </Stack>
       </Stack>

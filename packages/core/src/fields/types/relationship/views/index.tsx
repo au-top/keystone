@@ -20,6 +20,7 @@ import { useKeystone, useList } from '../../../../admin-ui/context';
 import { gql, useQuery } from '../../../../admin-ui/apollo';
 import { CellContainer, CreateItemDrawer } from '../../../../admin-ui/components';
 
+import { i18nLang } from '../../../../lang/main';
 import { Cards } from './cards';
 import { RelationshipSelect } from './RelationshipSelect';
 
@@ -61,14 +62,15 @@ function LinkToRelatedItems({
     const query = constructQuery({ refFieldKey, value, itemId });
     return (
       <Button {...commonProps} as={Link} href={`/${list.path}?${query}`}>
-        View related {list.plural}
+        {i18nLang.Fields.Components.Relationship.Index.ViewRelated} {list.plural}
       </Button>
     );
   }
 
   return (
     <Button {...commonProps} as={Link} href={`/${list.path}/${value.value?.id}`}>
-      View {list.singular} details
+      {i18nLang.Fields.Components.Relationship.Index.View} {list.singular}{' '}
+      {i18nLang.Fields.Components.Relationship.Index.Details}
     </Button>
   );
 }
@@ -110,9 +112,10 @@ export const Field = ({
         <FieldDescription id={`${field.path}-description`}>{field.description}</FieldDescription>
         <div>
           {value.count === 1
-            ? `There is 1 ${foreignList.singular} `
-            : `There are ${value.count} ${foreignList.plural} `}
-          linked to this {localList.singular}
+            ? `${i18nLang.Fields.Components.Relationship.Views.Cards.Index.ThereIs1} ${foreignList.singular} `
+            : `${i18nLang.Fields.Components.Relationship.Views.Cards.Index.ThereAre} ${value.count} ${foreignList.plural} `}
+          {i18nLang.Fields.Components.Relationship.Views.Cards.Index.LinkedToThis}{' '}
+          {localList.singular}
         </div>
       </Stack>
     );
@@ -168,7 +171,7 @@ export const Field = ({
                   setIsDrawerOpen(true);
                 }}
               >
-                Create related {foreignList.singular}
+                {i18nLang.Fields.Components.Relationship.Views.Index.CreateRelated} {foreignList.singular}
               </Button>
             )}
             {onChange !== undefined &&

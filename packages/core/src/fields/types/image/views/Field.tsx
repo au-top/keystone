@@ -9,6 +9,7 @@ import { Button } from '@keystone-ui/button';
 import { FieldProps } from '../../../../types';
 import { SUPPORTED_IMAGE_EXTENSIONS } from '../utils';
 import { ImageValue } from './index';
+import { i18nLang } from '../../../../lang/main';
 
 function useObjectURL(fileData: File | undefined) {
   let [objectURL, setObjectURL] = useState<string | undefined>(undefined);
@@ -139,7 +140,7 @@ function ImgView({
                   fontWeight: 500,
                 }}
               >
-                Save to complete upload
+                {i18nLang.Fields.Components.Image.Views.Field.SaveToCompleteUpload}
               </div>
             )}
             <img
@@ -195,7 +196,7 @@ function ImgView({
                   inputRef.current?.click();
                 }}
               >
-                Change
+                {i18nLang.Fields.Components.Image.Views.Field.Change}
               </Button>
               {value.kind === 'from-server' && (
                 <Button
@@ -205,7 +206,7 @@ function ImgView({
                     onChange({ kind: 'remove', previous: value });
                   }}
                 >
-                  Remove
+                  {i18nLang.Fields.Components.Image.Views.Field.Remove}
                 </Button>
               )}
               {value.kind === 'upload' && (
@@ -216,7 +217,7 @@ function ImgView({
                     onChange(value.previous);
                   }}
                 >
-                  Cancel
+                  {i18nLang.Fields.Components.Image.Views.Field.Cancel}
                 </Button>
               )}
             </Stack>
@@ -231,7 +232,7 @@ function ImgView({
               inputRef.current?.click();
             }}
           >
-            Upload Image
+            {i18nLang.Fields.Components.Image.Views.Field.UploadImage}
           </Button>
           {value.kind === 'remove' && value.previous && (
             <Button
@@ -243,7 +244,7 @@ function ImgView({
                 }
               }}
             >
-              Undo removal
+              {i18nLang.Fields.Components.Image.Views.Field.UndoRemoval}
             </Button>
           )}
         </Stack>
@@ -266,23 +267,22 @@ export function validateImage({
   validity: ValidityState;
 }): string | undefined {
   if (!validity.valid) {
-    return 'Something went wrong, please reload and try again.';
+    return i18nLang.Fields.Components.Image.Views.Field.SomethingWentWrongPleaseReloadAndTryAgain;
   }
   // check if the file is actually an image
   if (!file.type.includes('image')) {
-    return `Sorry, that file type isn't accepted. Please try ${SUPPORTED_IMAGE_EXTENSIONS.reduce(
-      (acc, curr, currentIndex) => {
-        if (currentIndex === SUPPORTED_IMAGE_EXTENSIONS.length - 1) {
-          acc += ` or .${curr}`;
-        } else if (currentIndex > 0) {
-          acc += `, .${curr}`;
-        } else {
-          acc += `.${curr}`;
-        }
-        return acc;
-      },
-      ''
-    )}.`;
+    return `${
+      i18nLang.Fields.Components.Image.Views.Field.SorryThatFileTypeIsnTAcceptedPleaseTry
+    } ${SUPPORTED_IMAGE_EXTENSIONS.reduce((acc, curr, currentIndex) => {
+      if (currentIndex === SUPPORTED_IMAGE_EXTENSIONS.length - 1) {
+        acc += ` ${i18nLang.Fields.Components.Image.Views.Field.Or} .${curr}`;
+      } else if (currentIndex > 0) {
+        acc += `, .${curr}`;
+      } else {
+        acc += `.${curr}`;
+      }
+      return acc;
+    }, '')}.`;
   }
 }
 
@@ -301,8 +301,12 @@ export const ImageMeta = ({
 }) => {
   return (
     <Stack padding="xxsmall" gap="xxsmall">
-      <Text size="small">Size: {`${bytes(size)}`}</Text>
-      <Text size="small">Dimensions: {`${width} x ${height}`}</Text>
+      <Text size="small">
+        {i18nLang.Fields.Components.Image.Views.Field.Size}: {`${bytes(size)}`}
+      </Text>
+      <Text size="small">
+        {i18nLang.Fields.Components.Image.Views.Field.Dimensions}: {`${width} x ${height}`}
+      </Text>
     </Stack>
   );
 };

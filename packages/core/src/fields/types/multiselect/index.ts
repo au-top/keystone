@@ -11,6 +11,7 @@ import { graphql } from '../../..';
 import { assertCreateIsNonNullAllowed, assertReadIsNonNullAllowed } from '../../non-null-graphql';
 import { resolveView } from '../../resolve-view';
 import { userInputError } from '../../../lib/core/graphql-errors';
+import { i18nLang } from '../../../lang/main';
 
 export type MultiselectFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> &
@@ -90,7 +91,9 @@ export const multiselect =
       val: T[] | null | undefined
     ): T[] | undefined => {
       if (val === null) {
-        throw userInputError('multiselect fields cannot be set to null');
+        throw userInputError(
+          i18nLang.Fields.Components.Multiselect.Index.MultiselectFieldsCannotBeSetToNull
+        );
       }
       return val;
     };
@@ -116,12 +119,16 @@ export const multiselect =
             if (selectedValues !== undefined) {
               for (const value of selectedValues) {
                 if (!possibleValues.has(value)) {
-                  args.addValidationError(`${value} is not a possible value for ${fieldLabel}`);
+                  args.addValidationError(
+                    `${value} ${i18nLang.Fields.Components.Multiselect.Index.IsNotAPossibleValueFor} ${fieldLabel}`
+                  );
                 }
               }
               const uniqueValues = new Set(selectedValues);
               if (uniqueValues.size !== selectedValues.length) {
-                args.addValidationError(`${fieldLabel} must have a unique set of options selected`);
+                args.addValidationError(
+                  `${fieldLabel} ${i18nLang.Fields.Components.Multiselect.Index.MustHaveAUniqueSetOfOptionsSelected}`
+                );
               }
             }
 

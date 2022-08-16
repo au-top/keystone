@@ -6,6 +6,7 @@ import { Button } from '@keystone-ui/button';
 import { ReactNode, useEffect } from 'react';
 
 import { useMutation, gql } from '../apollo';
+import { i18nLang } from '../../lang/main';
 
 const END_SESSION = gql`
   mutation EndSession {
@@ -23,7 +24,7 @@ const SignoutButton = ({ children }: { children?: ReactNode }) => {
 
   return (
     <Button size="small" isLoading={loading} onClick={() => endSession()}>
-      {children || 'Sign out'}
+      {children || i18nLang.AdminUIComponents.SignoutButton.SignOut}
     </Button>
   );
 };

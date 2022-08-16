@@ -13,6 +13,7 @@ import { NavigationProps, ListMeta, AuthenticatedItem } from '../../types';
 import { useKeystone } from '../context';
 import { Link } from '../router';
 import { SignoutButton } from './SignoutButton';
+import { i18nLang } from '../../lang/main';
 
 type NavItemProps = {
   href: string;
@@ -39,7 +40,7 @@ export const NavItem = ({ href, children, isSelected: _isSelected }: NavItemProp
           fontWeight: typography.fontWeight.medium,
           marginBottom: spacing.xsmall,
           marginRight: spacing.xlarge,
-          padding: `${spacing.small}px ${spacing.xlarge}px`,
+          padding: `${ spacing.small }px ${ spacing.xlarge }px`,
           position: 'relative',
           textDecoration: 'none',
 
@@ -76,7 +77,7 @@ const AuthenticatedItemDialog = ({ item }: { item: AuthenticatedItem | undefined
     >
       {item && item.state === 'authenticated' ? (
         <div css={{ fontSize: typography.fontSize.small }}>
-          Signed in as <strong css={{ display: 'block' }}>{item.label}</strong>
+          {i18nLang.AdminUIComponents.Navigation.SignedInAs} <strong css={{ display: 'block' }}>{item.label}</strong>
         </div>
       ) : (
         process.env.NODE_ENV !== 'production' && (
@@ -93,7 +94,7 @@ const AuthenticatedItemDialog = ({ item }: { item: AuthenticatedItem | undefined
             <Button
               size="small"
               style={{ padding: 0, width: 36 }}
-              aria-label="Links and signout"
+              aria-label={i18nLang.AdminUIComponents.Navigation.$AriaLabel.LinksAndSignout}
               {...triggerProps}
             >
               <MoreHorizontalIcon />
@@ -153,7 +154,7 @@ export const NavigationContainer = ({ authenticatedItem, children }: NavigationC
       }}
     >
       <AuthenticatedItemDialog item={authenticatedItem} />
-      <nav role="navigation" aria-label="Side Navigation" css={{ marginTop: spacing.xlarge }}>
+      <nav role="navigation" aria-label={i18nLang.AdminUIComponents.Navigation.$AriaLabel.SideNavigation} css={{ marginTop: spacing.xlarge }}>
         <ul
           css={{
             padding: 0,
@@ -174,8 +175,8 @@ export const ListNavItem = ({ list }: { list: ListMeta }) => {
   const router = useRouter();
   return (
     <NavItem
-      isSelected={router.pathname.split('/')[1] === `/${list.path}`.split('/')[1]}
-      href={`/${list.path}`}
+      isSelected={router.pathname.split('/')[1] === `/${ list.path }`.split('/')[1]}
+      href={`/${ list.path }`}
     >
       {list.label}
     </NavItem>
@@ -234,7 +235,7 @@ export const Navigation = () => {
 
   return (
     <NavigationContainer authenticatedItem={authenticatedItem}>
-      <NavItem href="/">Dashboard</NavItem>
+      <NavItem href="/">{i18nLang.DefineConst.Dashboard}</NavItem>
       <ListNavItems lists={renderableLists} />
     </NavigationContainer>
   );

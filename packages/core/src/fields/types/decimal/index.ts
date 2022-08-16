@@ -16,6 +16,7 @@ import {
   assertReadIsNonNullAllowed,
   getResolvedIsNullable,
 } from '../../non-null-graphql';
+import { i18nLang } from '../../../lang/main';
 
 export type DecimalFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> & {
@@ -131,15 +132,21 @@ export const decimal =
           const val: Decimal | null | undefined = args.resolvedData[meta.fieldKey];
 
           if (val === null && (validation?.isRequired || isNullable === false)) {
-            args.addValidationError(`${fieldLabel} is required`);
+            args.addValidationError(
+              `${fieldLabel} ${i18nLang.Fields.Components.Decimal.Index.IsRequired}`
+            );
           }
           if (val != null) {
             if (min !== undefined && val.lessThan(min)) {
-              args.addValidationError(`${fieldLabel} must be greater than or equal to ${min}`);
+              args.addValidationError(
+                `${fieldLabel} ${i18nLang.Fields.Components.Decimal.Index.MustBeGreaterThanOrEqualTo} ${min}`
+              );
             }
 
             if (max !== undefined && val.greaterThan(max)) {
-              args.addValidationError(`${fieldLabel} must be less than or equal to ${max}`);
+              args.addValidationError(
+                `${fieldLabel} ${i18nLang.Fields.Components.Decimal.Index.MustBeLessThanOrEqualTo} ${max}`
+              );
             }
           }
 

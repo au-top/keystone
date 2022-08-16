@@ -13,6 +13,7 @@ import {
 } from '../../../../types';
 import { CellLink, CellContainer } from '../../../../admin-ui/components';
 import { useFormattedInput } from '../../integer/views/utils';
+import { i18nLang } from '../../../../lang/main';
 
 type Validation = {
   min?: number;
@@ -40,7 +41,7 @@ function validate(value: Value, validation: Validation, label: string) {
   }
 
   if (validation.isRequired && val === null) {
-    return `${label} is required`;
+    return `${label} ${i18nLang.Fields.Components.Float.Views.Index.IsRequired}`;
   }
 
   // we don't parse infinite numbers into +-Infinity/NaN so that we don't lose the text that the user wrote
@@ -48,17 +49,17 @@ function validate(value: Value, validation: Validation, label: string) {
   if (typeof val === 'string') {
     const number = parseFloat(val);
     if (isNaN(number)) {
-      return `${label} must be a number`;
+      return `${label} ${i18nLang.Fields.Components.Float.Views.Index.MustBeANumber}`;
     }
-    return `${label} must be finite`;
+    return `${label} ${i18nLang.Fields.Components.Float.Views.Index.MustBeFinite}`;
   }
 
   if (typeof val === 'number') {
     if (typeof validation?.min === 'number' && val < validation.min) {
-      return `${label} must be greater than or equal to ${validation.min}`;
+      return `${label} ${i18nLang.Fields.Components.Float.Views.Index.MustBeGreaterThanOrEqualTo} ${validation.min}`;
     }
     if (typeof validation?.max === 'number' && val > validation?.max) {
-      return `${label} must be less than or equal to ${validation.max}`;
+      return `${label} ${i18nLang.Fields.Components.Float.Views.Index.MustBeLessThanOrEqualTo} ${validation.max}`;
     }
   }
 
@@ -230,35 +231,35 @@ export const controller = (
       },
       types: {
         is: {
-          label: 'Is exactly',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsExactly,
           initialValue: '',
         },
         not: {
-          label: 'Is not exactly',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsNotExactly,
           initialValue: '',
         },
         gt: {
-          label: 'Is greater than',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsGreaterThen,
           initialValue: '',
         },
         lt: {
-          label: 'Is less than',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsLessThan,
           initialValue: '',
         },
         gte: {
-          label: 'Is greater than or equal to',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsGreaterThanOrEqualTo,
           initialValue: '',
         },
         lte: {
-          label: 'Is less than or equal to',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsLessThanOrEqualTo,
           initialValue: '',
         },
         in: {
-          label: 'Is one of',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsOneOf,
           initialValue: '',
         },
         not_in: {
-          label: 'Is not one of',
+          label: i18nLang.Fields.Components.Float.Views.Index.IsNotOneOf,
           initialValue: '',
         },
       },

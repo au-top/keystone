@@ -10,6 +10,7 @@ import {
 import { graphql } from '../../..';
 import { assertCreateIsNonNullAllowed, assertReadIsNonNullAllowed } from '../../non-null-graphql';
 import { resolveView } from '../../resolve-view';
+import { i18nLang } from '../../../lang/main';
 
 export type TextFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> & {
@@ -122,26 +123,31 @@ export const text =
         async validateInput(args) {
           const val = args.resolvedData[meta.fieldKey];
           if (val === null && (validation?.isRequired || isNullable === false)) {
-            args.addValidationError(`${fieldLabel} is required`);
+            args.addValidationError(
+              `${fieldLabel} ${i18nLang.Fields.Components.Text.Index.IsRequired}`
+            );
           }
           if (val != null) {
             if (validation?.length?.min !== undefined && val.length < validation.length.min) {
               if (validation.length.min === 1) {
-                args.addValidationError(`${fieldLabel} must not be empty`);
+                args.addValidationError(
+                  `${fieldLabel} ${i18nLang.Fields.Components.Text.Index.MustNotBeEmpty}`
+                );
               } else {
                 args.addValidationError(
-                  `${fieldLabel} must be at least ${validation.length.min} characters long`
+                  `${fieldLabel} ${i18nLang.Fields.Components.Text.Index.MustBeAtLeast} ${validation.length.min} ${i18nLang.Fields.Components.Text.Index.CharactersLong}`
                 );
               }
             }
             if (validation?.length?.max !== undefined && val.length > validation.length.max) {
               args.addValidationError(
-                `${fieldLabel} must be no longer than ${validation.length.max} characters`
+                `${fieldLabel} ${i18nLang.Fields.Components.Text.Index.MustBeNoLongerThan} ${validation.length.max} ${i18nLang.Fields.Components.Text.Index.Characters}`
               );
             }
             if (validation?.match && !validation.match.regex.test(val)) {
               args.addValidationError(
-                validation.match.explanation || `${fieldLabel} must match ${validation.match.regex}`
+                validation.match.explanation ||
+                  `${fieldLabel} ${i18nLang.Fields.Components.Text.Index.MustMatch} ${validation.match.regex}`
               );
             }
           }

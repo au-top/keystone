@@ -6,6 +6,7 @@ import { ChevronDownIcon } from '@keystone-ui/icons/icons/ChevronDownIcon';
 import { Options, OptionPrimitive, CheckMark } from '@keystone-ui/options';
 import { Popover } from '@keystone-ui/popover';
 import { useRouter } from 'next/router';
+import { i18nLang } from '../../../../lang/main';
 import { ListMeta } from '../../../../types';
 import { useSelectedFields } from './useSelectedFields';
 
@@ -65,13 +66,13 @@ export function FieldSelection({
 
   return (
     <Popover
-      aria-label={`Columns options, list of column options to apply to the ${list.key} list`}
+      aria-label={`${i18nLang.AdminUIPages.ListPage.FieldSelection.ColumnsOptionsListOfColumnOptionsToApplyToThe} ${list.key} ${i18nLang.AdminUIPages.ListPage.FieldSelection.List}`}
       triggerRenderer={({ triggerProps }) => {
         return (
           <Button weight="link" css={{ padding: 4 }} {...triggerProps}>
             <span css={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
-              {selectedFields.size} column{selectedFields.size === 1 ? '' : 's'}{' '}
-              <ChevronDownIcon size="smallish" />
+              {selectedFields.size} {i18nLang.AdminUIPages.ListPage.FieldSelection.Column}
+              {selectedFields.size === 1 ? '' : 's'} <ChevronDownIcon size="smallish" />
             </span>
           </Button>
         );

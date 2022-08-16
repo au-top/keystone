@@ -10,6 +10,7 @@ import { useKeystone, useList } from '../context';
 import { Fields } from '../utils/Fields';
 import { useCreateItem } from '../utils/useCreateItem';
 import { GraphQLErrorNotice } from './GraphQLErrorNotice';
+import { i18nLang } from '../../lang/main';
 
 export function CreateItemDrawer({
   listKey,
@@ -26,11 +27,11 @@ export function CreateItemDrawer({
 
   return (
     <Drawer
-      title={`Create ${list.singular}`}
+      title={`${ i18nLang.AdminUIComponents.CreateItemDrawer.Create } ${ list.singular }`}
       width="wide"
       actions={{
         confirm: {
-          label: `Create ${list.singular}`,
+          label: `${ i18nLang.AdminUIComponents.CreateItemDrawer.Create } ${ list.singular }`,
           loading: createItemState.state === 'loading',
           action: async () => {
             const item = await createItemState.create();
@@ -40,11 +41,11 @@ export function CreateItemDrawer({
           },
         },
         cancel: {
-          label: 'Cancel',
+          label: i18nLang.AdminUIComponents.CreateItemDrawer.Cancel,
           action: () => {
             if (
               !createItemState.shouldPreventNavigation ||
-              window.confirm('There are unsaved changes, are you sure you want to exit?')
+              window.confirm(i18nLang.AdminUIComponents.CreateItemDrawer.ThereAreUnsavedChangesAreYouSureYouWantToExit)
             ) {
               onClose();
             }
@@ -62,7 +63,7 @@ export function CreateItemDrawer({
           }
         />
       )}
-      {createViewFieldModes.state === 'loading' && <LoadingDots label="Loading create form" />}
+      {createViewFieldModes.state === 'loading' && <LoadingDots label={i18nLang.AdminUIComponents.CreateItemDrawer.LoadingCreateForm} />}
       {createItemState.error && (
         <GraphQLErrorNotice
           networkError={createItemState.error?.networkError}

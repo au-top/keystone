@@ -30,6 +30,7 @@ import { RelationshipSelect } from '../RelationshipSelect';
 import { useItemState } from './useItemState';
 import { InlineEdit } from './InlineEdit';
 import { InlineCreate } from './InlineCreate';
+import { i18nLang } from '../../../../../lang/main';
 
 type CardContainerProps = {
   children: ReactNode;
@@ -111,7 +112,10 @@ export function Cards({
 
   const [isLoadingLazyItems, setIsLoadingLazyItems] = useState(false);
   const [showConnectItems, setShowConnectItems] = useState(false);
-  const [hideConnectItemsLabel, setHideConnectItemsLabel] = useState<'Cancel' | 'Done'>('Cancel');
+
+  const [hideConnectItemsLabel, setHideConnectItemsLabel] = useState<string>(
+    i18nLang.Fields.Components.Relationship.Views.Cards.Index.Cancel
+  );
   const editRef = useRef<HTMLDivElement | null>(null);
 
   const isMountedRef = useRef(false);
@@ -131,7 +135,9 @@ export function Cards({
   if (itemsState.kind === 'loading') {
     return (
       <div>
-        <LoadingDots label={`Loading items for ${field.label} field`} />
+        <LoadingDots
+          label={`${i18nLang.Fields.Components.Relationship.Views.Cards.Index.LoadingItemsFor} ${field.label} ${i18nLang.Fields.Components.Relationship.Views.Cards.Index.Field}`}
+        />
       </div>
     );
   }
@@ -232,11 +238,16 @@ export function Cards({
                           }}
                           tone="active"
                         >
-                          Edit
+                          {i18nLang.Fields.Components.Relationship.Views.Cards.Index.Edit}
                         </Button>
                       )}
                       {displayOptions.removeMode === 'disconnect' && onChange !== undefined && (
-                        <Tooltip content="This item will not be deleted. It will only be removed from this field.">
+                        <Tooltip
+                          content={
+                            i18nLang.Fields.Components.Relationship.Views.Cards.Index
+                              .ThisItemWillNotBeDeletedItWillOnlyBeRemovedFromThisField
+                          }
+                        >
                           {props => (
                             <Button
                               size="small"
@@ -252,7 +263,7 @@ export function Cards({
                               {...props}
                               tone="negative"
                             >
-                              Remove
+                              {i18nLang.Fields.Components.Relationship.Views.Cards.Index.Remove}
                             </Button>
                           )}
                         </Tooltip>
@@ -266,7 +277,9 @@ export function Cards({
                           as={Link}
                           href={`/${foreignList.path}/${id}`}
                         >
-                          View {foreignList.singular} details
+                          {i18nLang.Fields.Components.Relationship.Views.Cards.Index.View}{' '}
+                          {foreignList.singular}{' '}
+                          {i18nLang.Fields.Components.Relationship.Views.Cards.Index.Details}
                         </Button>
                       )}
                     </Stack>
@@ -296,7 +309,7 @@ export function Cards({
               isDisabled={onChange === undefined}
               list={foreignList}
               isLoading={isLoadingLazyItems}
-              placeholder={`Select a ${foreignList.singular}`}
+              placeholder={`${i18nLang.Fields.Components.Relationship.Views.Cards.Index.SelectA} ${foreignList.singular}`}
               portalMenu
               state={{
                 kind: 'many',
@@ -339,7 +352,9 @@ export function Cards({
                             ...value,
                             currentIds: newCurrentIds,
                           });
-                          setHideConnectItemsLabel('Done');
+                          setHideConnectItemsLabel(
+                            i18nLang.Fields.Components.Relationship.Views.Cards.Index.Done
+                          );
                         }
                       }
                     } finally {
@@ -398,7 +413,8 @@ export function Cards({
                   });
                 }}
               >
-                Create {foreignList.singular}
+                {i18nLang.Fields.Components.Relationship.Views.Cards.Index.Create}{' '}
+                {foreignList.singular}
               </Button>
             )}
             {displayOptions.inlineConnect && (
@@ -408,10 +424,13 @@ export function Cards({
                 tone="passive"
                 onClick={() => {
                   setShowConnectItems(true);
-                  setHideConnectItemsLabel('Cancel');
+                  setHideConnectItemsLabel(
+                    i18nLang.Fields.Components.Relationship.Views.Cards.Index.Cancel
+                  );
                 }}
               >
-                Link existing {foreignList.singular}
+                {i18nLang.Fields.Components.Relationship.Views.Cards.Index.LinkExisting}{' '}
+                {foreignList.singular}
               </Button>
             )}
           </Stack>
@@ -420,8 +439,14 @@ export function Cards({
       {/* TODO: this may not be visible to the user when they invoke the save action. Maybe scroll to it? */}
       {forceValidation && (
         <Text color="red600" size="small">
-          You must finish creating and editing any related {foreignList.label.toLowerCase()} before
-          saving the {localList.singular.toLowerCase()}
+          {
+            i18nLang.Fields.Components.Relationship.Views.Cards.Index
+              .YouMustFinishCreatingAndEditingAnyRelated
+          }{' '}
+          {foreignList.label.toLowerCase()}{' '}
+          {i18nLang.Fields.Components.Relationship.Views.Cards.Index.Before}
+          {i18nLang.Fields.Components.Relationship.Views.Cards.Index.SavingThe}{' '}
+          {localList.singular.toLowerCase()}
         </Text>
       )}
     </Stack>

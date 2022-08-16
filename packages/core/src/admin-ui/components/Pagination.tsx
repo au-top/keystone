@@ -5,6 +5,7 @@ import { jsx, Stack, useTheme } from '@keystone-ui/core';
 import { Select } from '@keystone-ui/fields';
 import { ChevronRightIcon, ChevronLeftIcon } from '@keystone-ui/icons';
 import { Link, useRouter } from '../router';
+import { i18nLang } from '../../lang/main';
 
 interface PaginationProps {
   pageSize: number;
@@ -18,7 +19,7 @@ const getPaginationStats = ({ list, pageSize, currentPage, total }: PaginationPr
   if (total > pageSize) {
     const start = pageSize * (currentPage - 1) + 1;
     const end = Math.min(start + pageSize - 1, total);
-    stats = `${start} - ${end} of ${total} ${list.plural}`;
+    stats = `${start} - ${end} ${i18nLang.AdminUIComponents.Pagination.Of} ${total} ${list.plural}`;
   } else {
     if (total > 1 && list.plural) {
       stats = `${total} ${list.plural}`;
@@ -83,7 +84,7 @@ export function Pagination({ currentPage, total, pageSize, list }: PaginationPro
     <Stack
       as="nav"
       role="navigation"
-      aria-label="Pagination"
+      aria-label={i18nLang.AdminUIComponents.Pagination.$AriaLabel.Pagination}
       paddingLeft="medium"
       paddingRight="medium"
       paddingTop="large"
@@ -96,7 +97,7 @@ export function Pagination({ currentPage, total, pageSize, list }: PaginationPro
       }}
     >
       <Stack across gap="xxlarge" align="center">
-        <span>{`${list.plural} per page: ${pageSize}`}</span>
+        <span>{`${list.plural} ${i18nLang.AdminUIComponents.Pagination.PerPage}: ${pageSize}`}</span>
         <span>
           <strong>{stats}</strong>
         </span>
@@ -117,9 +118,11 @@ export function Pagination({ currentPage, total, pageSize, list }: PaginationPro
           menuPortalTarget={document.body}
           onChange={onChange}
         />
-        <span>of {limit}</span>
+        <span>
+          {i18nLang.AdminUIComponents.Pagination.Of} {limit}
+        </span>
         <Link
-          aria-label="Previous page"
+          aria-label={i18nLang.AdminUIComponents.Pagination.$AriaLabel.PreviousPage}
           css={{
             color: '#415269',
             ...(prevPage < minPage && {
@@ -132,7 +135,7 @@ export function Pagination({ currentPage, total, pageSize, list }: PaginationPro
           <ChevronLeftIcon />
         </Link>
         <Link
-          aria-label="Next page"
+          aria-label={i18nLang.AdminUIComponents.Pagination.$AriaLabel.NextPage}
           css={{
             color: '#415269',
             ...(nextPage > limit && {
@@ -170,12 +173,16 @@ export function PaginationLabel({
   });
 
   if (!total) {
-    return <span>No {plural}</span>;
+    return (
+      <span>
+        {i18nLang.AdminUIComponents.Pagination.No} {plural}
+      </span>
+    );
   }
 
   return (
     <span>
-      Showing <strong>{stats}</strong>
+      {i18nLang.AdminUIComponents.Pagination.Showing} <strong>{stats}</strong>
     </span>
   );
 }

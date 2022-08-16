@@ -14,6 +14,7 @@ import {
 } from '../../../../types';
 import { CellLink, CellContainer } from '../../../../admin-ui/components';
 import { useFormattedInput } from '../../integer/views/utils';
+import { i18nLang } from '../../../../lang/main';
 
 export const Field = ({
   field,
@@ -128,7 +129,7 @@ type Value =
 function validate(value: Value, validation: Validation, label: string): string | undefined {
   const val = value.value;
   if (typeof val === 'string') {
-    return `${label} must be a number`;
+    return `${label} ${i18nLang.Fields.Components.Decimal.Views.Index.MustBeANumber}`;
   }
 
   // if we recieve null initially on the item view and the current value is null,
@@ -140,18 +141,18 @@ function validate(value: Value, validation: Validation, label: string): string |
   }
 
   if (val !== null && !val.isFinite()) {
-    return `${label} must be finite`;
+    return `${label} ${i18nLang.Fields.Components.Decimal.Views.Index.MustBeFinite}`;
   }
 
   if (validation.isRequired && val === null) {
-    return `${label} is required`;
+    return `${label} ${i18nLang.Fields.Components.Decimal.Views.Index.IsRequired}`;
   }
   if (val !== null) {
     if (validation.min !== null && val.lessThan(validation.min)) {
-      return `${label} must be greater than or equal to ${validation.min}`;
+      return `${label} ${i18nLang.Fields.Components.Decimal.Views.Index.MustBeGreaterThanOrEqualTo} ${validation.min}`;
     }
     if (validation.max !== null && val.greaterThan(validation.max)) {
-      return `${label} must be less than or equal to ${validation.max}`;
+      return `${label} ${i18nLang.Fields.Components.Decimal.Views.Index.MustBeLessThanOrEqualTo} ${validation.max}`;
     }
   }
 
@@ -233,35 +234,35 @@ export const controller = (
       },
       types: {
         is: {
-          label: 'Is exactly',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsExactly,
           initialValue: '',
         },
         not: {
-          label: 'Is not exactly',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsNotExactly,
           initialValue: '',
         },
         gt: {
-          label: 'Is greater than',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsGreaterThen,
           initialValue: '',
         },
         lt: {
-          label: 'Is less than',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsLessThan,
           initialValue: '',
         },
         gte: {
-          label: 'Is greater than or equal to',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsGreaterThanOrEqualTo,
           initialValue: '',
         },
         lte: {
-          label: 'Is less than or equal to',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsLessThanOrEqualTo,
           initialValue: '',
         },
         in: {
-          label: 'Is one of',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsOneOf,
           initialValue: '',
         },
         not_in: {
-          label: 'Is not one of',
+          label: i18nLang.Fields.Components.Decimal.Views.Index.IsNotOneOf,
           initialValue: '',
         },
       },

@@ -5,6 +5,7 @@ import { Component, ReactNode } from 'react';
 import { Button } from '@keystone-ui/button';
 import { jsx, Box, Center, Stack, useTheme } from '@keystone-ui/core';
 import { AlertTriangleIcon } from '@keystone-ui/icons/icons/AlertTriangleIcon';
+import { i18nLang } from '../../lang/main';
 
 type ErrorBoundaryProps = {
   children: ReactNode;
@@ -30,9 +31,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         <ErrorContainer>
           <Stack align="center" gap="medium">
             <AlertTriangleIcon size="large" />
-            <div>Something went wrong.</div>
+            <div>{i18nLang.AdminUIComponents.Errors.SomethingWentWrong}</div>
             <Button size="small" isLoading={this.state.isReloading} onClick={this.reloadPage}>
-              reload page
+              {i18nLang.AdminUIComponents.Errors.ReloadPage}
             </Button>
           </Stack>
         </ErrorContainer>

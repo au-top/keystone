@@ -18,6 +18,7 @@ import {
   FieldProps,
 } from '../../../../types';
 import { CellContainer, CellLink } from '../../../../admin-ui/components';
+import { i18nLang } from '../../../../lang/main';
 
 export const Field = ({
   field,
@@ -94,7 +95,7 @@ export const Field = ({
               checked={value.inner.kind === 'null'}
             >
               <span css={{ fontWeight: typography.fontWeight.semibold, color: fields.labelColor }}>
-                Set field as null
+                {i18nLang.Fields.Components.Text.Views.Index.SetFieldAsNull}
               </span>
             </Checkbox>
           )}
@@ -153,7 +154,7 @@ function validate(value: TextValue, validation: Validation, fieldLabel: string):
 
   if (value.inner.kind === 'null') {
     if (validation.isRequired) {
-      return [`${fieldLabel} is required`];
+      return [`${fieldLabel} ${i18nLang.Fields.Components.Text.Views.Index.IsRequired}`];
     }
     return [];
   }
@@ -163,17 +164,22 @@ function validate(value: TextValue, validation: Validation, fieldLabel: string):
   let messages: string[] = [];
   if (validation.length.min !== null && val.length < validation.length.min) {
     if (validation.length.min === 1) {
-      messages.push(`${fieldLabel} must not be empty`);
+      messages.push(`${fieldLabel} ${i18nLang.Fields.Components.Text.Views.Index.MustNotBeEmpty}`);
     } else {
-      messages.push(`${fieldLabel} must be at least ${validation.length.min} characters long`);
+      messages.push(
+        `${fieldLabel} ${i18nLang.Fields.Components.Text.Views.Index.MustBeAtLeast} ${validation.length.min} ${i18nLang.Fields.Components.Text.Views.Index.CharactersLong}`
+      );
     }
   }
   if (validation.length.max !== null && val.length > validation.length.max) {
-    messages.push(`${fieldLabel} must be no longer than ${validation.length.max} characters`);
+    messages.push(
+      `${fieldLabel} ${i18nLang.Fields.Components.Text.Views.Index.MustBeNoLongerThan} ${validation.length.max} ${i18nLang.Fields.Components.Text.Views.Index.Characters}`
+    );
   }
   if (validation.match && !validation.match.regex.test(val)) {
     messages.push(
-      validation.match.explanation || `${fieldLabel} must match ${validation.match.regex}`
+      validation.match.explanation ||
+        `${fieldLabel} ${i18nLang.Fields.Components.Text.Views.Index.MustMatch} ${validation.match.regex}`
     );
   }
   return messages;
@@ -261,35 +267,35 @@ export const controller = (
       },
       types: {
         contains_i: {
-          label: 'Contains',
+          label: i18nLang.Fields.Components.Text.Views.Index.Contains,
           initialValue: '',
         },
         not_contains_i: {
-          label: 'Does not contain',
+          label: i18nLang.Fields.Components.Text.Views.Index.DoesNotContain,
           initialValue: '',
         },
         is_i: {
-          label: 'Is exactly',
+          label: i18nLang.Fields.Components.Text.Views.Index.IsExactly,
           initialValue: '',
         },
         not_i: {
-          label: 'Is not exactly',
+          label: i18nLang.Fields.Components.Text.Views.Index.IsNotExactly,
           initialValue: '',
         },
         starts_with_i: {
-          label: 'Starts with',
+          label: i18nLang.Fields.Components.Text.Views.Index.StartsWith,
           initialValue: '',
         },
         not_starts_with_i: {
-          label: 'Does not start with',
+          label: i18nLang.Fields.Components.Text.Views.Index.DoesNotStartWith,
           initialValue: '',
         },
         ends_with_i: {
-          label: 'Ends with',
+          label: i18nLang.Fields.Components.Text.Views.Index.EndsWith,
           initialValue: '',
         },
         not_ends_with_i: {
-          label: 'Does not end with',
+          label: i18nLang.Fields.Components.Text.Views.Index.DoesNotEndWith,
           initialValue: '',
         },
       },

@@ -6,6 +6,8 @@ import { Fragment, HTMLAttributes, ReactNode } from 'react';
 
 import { Navigation } from './Navigation';
 import { Logo } from './Logo';
+import { i18nLang } from '../../lang/main';
+import { K6Config } from '../../k6-config/define-const';
 
 type PageContainerProps = {
   children: ReactNode;
@@ -26,7 +28,7 @@ const PageWrapper = (props: HTMLAttributes<HTMLElement>) => {
           // background: colors.background,
           display: 'grid',
           gridTemplateColumns: `minmax(300px, 1fr) 4fr`,
-          gridTemplateRows: `${HEADER_HEIGHT}px auto`,
+          gridTemplateRows: `${ HEADER_HEIGHT }px auto`,
           height: '100vh',
           isolation: 'isolate',
         }}
@@ -80,7 +82,7 @@ export const PageContainer = ({ children, header, title }: PageContainerProps) =
         css={{
           alignItems: 'center',
           // borderRight: `1px solid ${colors.border}`,
-          borderBottom: `1px solid ${colors.border}`,
+          borderBottom: `1px solid ${ colors.border }`,
           display: 'flex',
           justifyContent: 'space-between',
           paddingLeft: spacing.xlarge,
@@ -93,7 +95,7 @@ export const PageContainer = ({ children, header, title }: PageContainerProps) =
         css={{
           alignItems: 'center',
           backgroundColor: colors.background,
-          borderBottom: `1px solid ${colors.border}`,
+          borderBottom: `1px solid ${ colors.border }`,
           display: 'flex',
           justifyContent: 'space-between',
           minWidth: 0, // fix flex text truncation
@@ -101,7 +103,7 @@ export const PageContainer = ({ children, header, title }: PageContainerProps) =
           paddingRight: spacing.xlarge,
         }}
       >
-        <title>{title ? `Keystone - ${title}` : 'Keystone'}</title>
+        <title>{title ? `${ K6Config.DefineConfig.AppName } - ${ title }` : K6Config.DefineConfig.AppName}</title>
         {header}
       </header>
       <Sidebar>

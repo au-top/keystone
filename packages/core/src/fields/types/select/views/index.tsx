@@ -21,6 +21,7 @@ import {
   FieldProps,
 } from '../../../../types';
 import { CellContainer, CellLink } from '../../../../admin-ui/components';
+import { i18nLang } from '../../../../lang/main';
 
 export const Field = ({
   field,
@@ -33,7 +34,7 @@ export const Field = ({
   const validationMessage =
     (hasChanged || forceValidation) && !validate(value, field.isRequired) ? (
       <Text color="red600" size="small">
-        {field.label} is required
+        {field.label} {i18nLang.Fields.Components.Select.Views.Index.IsRequired}
       </Text>
     ) : null;
   return (
@@ -86,7 +87,7 @@ export const Field = ({
                   setHasChanged(true);
                 }}
               >
-                Clear
+                {i18nLang.Fields.Components.Select.Views.Index.Clear}
               </Button>
             )}
           </Stack>
@@ -117,7 +118,7 @@ export const Field = ({
                   setHasChanged(true);
                 }}
               >
-                Clear
+                {i18nLang.Fields.Components.Select.Views.Index.Clear}
               </Button>
             )}
           </Stack>

@@ -19,6 +19,7 @@ import {
 import { gql, useMutation } from '../../../../../admin-ui/apollo';
 import { GraphQLErrorNotice } from '../../../../../admin-ui/components';
 import { useFieldsObj } from './useItemState';
+import { i18nLang } from '../../../../../lang/main';
 
 export function InlineCreate({
   list,
@@ -83,7 +84,8 @@ export function InlineCreate({
         const error = errors?.find(x => x.path?.length === 1);
         if (error) {
           toasts.addToast({
-            title: 'Failed to create item',
+            title:
+              i18nLang.Fields.Components.Relationship.Views.Cards.InlineCreate.FailedToCreateItem,
             tone: 'negative',
             message: error.message,
           });
@@ -91,14 +93,16 @@ export function InlineCreate({
           toasts.addToast({
             title: data.item[list.labelField] || data.item.id,
             tone: 'positive',
-            message: 'Saved successfully',
+            message:
+              i18nLang.Fields.Components.Relationship.Views.Cards.InlineCreate.SavedSuccessfully,
           });
           onCreate(makeDataGetter(data, errors).get('item'));
         }
       })
       .catch(err => {
         toasts.addToast({
-          title: 'Failed to update item',
+          title:
+            i18nLang.Fields.Components.Relationship.Views.Cards.InlineCreate.FailedToUpdateItem,
           tone: 'negative',
           message: err.message,
         });
@@ -121,10 +125,11 @@ export function InlineCreate({
         />
         <Stack gap="small" across>
           <Button isLoading={loading} size="small" tone="positive" weight="bold" type="submit">
-            Create {list.singular}
+            {i18nLang.Fields.Components.Relationship.Views.Cards.InlineCreate.Create}{' '}
+            {list.singular}
           </Button>
           <Button size="small" weight="none" onClick={onCancel}>
-            Cancel
+            {i18nLang.Fields.Components.Relationship.Views.Cards.InlineCreate.Cancel}
           </Button>
         </Stack>
       </Stack>

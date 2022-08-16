@@ -11,6 +11,7 @@ import {
   IdFieldConfig,
 } from '../../types';
 import { CellLink, CellContainer } from '../../admin-ui/components';
+import { i18nLang } from '../../lang/main';
 
 export const Field = () => null;
 
@@ -77,14 +78,14 @@ export const controller = (
         return `${label.toLowerCase()}: ${renderedValue}`;
       },
       types: {
-        is: { label: 'Is exactly', initialValue: '' },
-        not: { label: 'Is not exactly', initialValue: '' },
-        gt: { label: 'Is greater than', initialValue: '' },
-        lt: { label: 'Is less than', initialValue: '' },
-        gte: { label: 'Is greater than or equal to', initialValue: '' },
-        lte: { label: 'Is less than or equal to', initialValue: '' },
-        in: { label: 'Is one of', initialValue: '' },
-        not_in: { label: 'Is not one of', initialValue: '' },
+        is: { label: i18nLang.AdminUIPages.Index.IsExactly, initialValue: '' },
+        not: { label: i18nLang.AdminUIPages.Index.IsNotExactly, initialValue: '' },
+        gt: { label: i18nLang.AdminUIPages.Index.IsGreaterThen, initialValue: '' },
+        lt: { label: i18nLang.AdminUIPages.Index.IsLessThan, initialValue: '' },
+        gte: { label: i18nLang.AdminUIPages.Index.IsGreaterThanOrEqualTo, initialValue: '' },
+        lte: { label: i18nLang.AdminUIPages.Index.IsLessThanOrEqualTo, initialValue: '' },
+        in: { label: i18nLang.AdminUIPages.Index.IsOneOf, initialValue: '' },
+        not_in: { label: i18nLang.AdminUIPages.Index.IsNotOneOf, initialValue: '' },
       },
     },
   };

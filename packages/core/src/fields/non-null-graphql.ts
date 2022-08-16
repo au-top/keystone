@@ -1,3 +1,4 @@
+import { i18nLang } from '../lang/main';
 import { BaseListTypeInfo, FieldAccessControl, FieldData } from '../types';
 
 export function hasReadAccessControl<ListTypeInfo extends BaseListTypeInfo>(
@@ -42,14 +43,16 @@ export function assertReadIsNonNullAllowed<ListTypeInfo extends BaseListTypeInfo
   if (config.graphql?.read?.isNonNull) {
     if (resolvedIsNullable) {
       throw new Error(
-        `The field at ${meta.listKey}.${meta.fieldKey} sets graphql.read.isNonNull: true but not validation.isRequired: true or db.isNullable: false.\n` +
-          `Set validation.isRequired: true or db.isNullable: false or disable graphql.read.isNonNull`
+        `${i18nLang.Fields.NonNullGraphql.AssertReadIsNonNullAllowed.ResolvedIsNullable.TheFieldAt}${meta.listKey}.${meta.fieldKey} ${i18nLang.Fields.NonNullGraphql.AssertReadIsNonNullAllowed.ResolvedIsNullable.SetsGraphqlReadIsNonNullTrueButNotValidationIsRequiredTrueOrDbIsNullableFalse}` +
+          '\n' +
+          `${i18nLang.Fields.NonNullGraphql.AssertReadIsNonNullAllowed.ResolvedIsNullable.SetValidationIsRequiredTrueOrDbIsNullableFalseOrDisableGraphqlReadIsNonNull}`
       );
     }
     if (hasReadAccessControl(config.access)) {
       throw new Error(
-        `The field at ${meta.listKey}.${meta.fieldKey} sets graphql.read.isNonNull: true and has read access control, this is not allowed.\n` +
-          'Either disable graphql.read.isNonNull or read access control.'
+        `${i18nLang.Fields.NonNullGraphql.AssertReadIsNonNullAllowed.HasReadAccessControl.TheFieldAt}${meta.listKey}.${meta.fieldKey} ${i18nLang.Fields.NonNullGraphql.AssertReadIsNonNullAllowed.HasReadAccessControl.SetsGraphqlReadIsNonNullTrueAndHasReadAccessControlThisIsNotAllowed}` +
+          '\n' +
+          `${i18nLang.Fields.NonNullGraphql.AssertReadIsNonNullAllowed.HasReadAccessControl.EitherDisableGraphqlReadIsNonNullOrReadAccessControl}`
       );
     }
   }
@@ -64,8 +67,8 @@ export function assertCreateIsNonNullAllowed<ListTypeInfo extends BaseListTypeIn
 ) {
   if (config.graphql?.create?.isNonNull && hasCreateAccessControl(config.access)) {
     throw new Error(
-      `The field at ${meta.listKey}.${meta.fieldKey} sets graphql.create.isNonNull: true and has create access control, this is not allowed.\n` +
-        'Either disable graphql.create.isNonNull or create access control.'
+      `${i18nLang.Fields.NonNullGraphql.AssertCreateIsNonNullAllowed.TheFieldAt}${meta.listKey}.${meta.fieldKey} ${i18nLang.Fields.NonNullGraphql.AssertCreateIsNonNullAllowed.SetsGraphqlReadIsNonNullTrueAndHasCreateAccessControlThisIsNotAllowed}` +        '\n' +
+        `${i18nLang.Fields.NonNullGraphql.AssertCreateIsNonNullAllowed.EitherDisableGraphqlReadIsNonNullOrCreateAccessControl}`
     );
   }
 }

@@ -15,6 +15,7 @@ import {
   getResolvedIsNullable,
 } from '../../non-null-graphql';
 import { resolveView } from '../../resolve-view';
+import { i18nLang } from '../../../lang/main';
 
 export type SelectFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> &
@@ -100,13 +101,15 @@ export const select =
           async validateInput(args) {
             const value = args.resolvedData[meta.fieldKey];
             if (value != null && !values.has(value)) {
-              args.addValidationError(`${value} is not a possible value for ${fieldLabel}`);
+              args.addValidationError(`${value} ${i18nLang.Fields.Components.Select.Index.IsNotAPossibleValueFor} ${fieldLabel}`);
             }
             if (
               (validation?.isRequired || resolvedIsNullable === false) &&
               (value === null || (value === undefined && args.operation === 'create'))
             ) {
-              args.addValidationError(`${fieldLabel} is required`);
+              args.addValidationError(
+                `${fieldLabel} ${i18nLang.Fields.Components.Select.Index.IsRequired}`
+              );
             }
             await config.hooks?.validateInput?.(args);
           },

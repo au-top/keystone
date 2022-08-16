@@ -8,6 +8,7 @@ import { Pill } from '@keystone-ui/pill';
 import { FieldMeta, ListMeta } from '../../../../types';
 import { useRouter } from '../../../../admin-ui/router';
 import { Filter } from './useFilters';
+import { i18nLang } from '../../../../lang/main';
 
 export function FilterList({ filters, list }: { filters: Filter[]; list: ListMeta }) {
   return (
@@ -107,8 +108,8 @@ function EditDialog({
     >
       <Filter type={filter.type} value={value} onChange={setValue} />
       <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button type="submit">Save</Button>
+        <Button onClick={onClose}>{i18nLang.AdminUIPages.ListPage.FilterList.Cancel}</Button>
+        <Button type="submit">{i18nLang.AdminUIPages.ListPage.FilterList.Save}</Button>
       </div>
     </Stack>
   );

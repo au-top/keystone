@@ -13,6 +13,7 @@ import {
 } from '../../../../types';
 import { CellLink, CellContainer } from '../../../../admin-ui/components';
 import { useFormattedInput } from './utils';
+import { i18nLang } from '../../../../lang/main';
 
 function IntegerInput({
   value,
@@ -99,7 +100,7 @@ export const Field = ({
             forceValidation={forceValidation}
             placeholder={
               field.hasAutoIncrementDefault && value.kind === 'create'
-                ? 'Defaults to an incremented number'
+                ? i18nLang.Fields.Components.Integer.Views.Field.DefaultsToAnIncrementedNumber
                 : undefined
             }
             validationMessage={message}
@@ -136,7 +137,7 @@ function validate(
 ): string | undefined {
   const val = value.value;
   if (typeof val === 'string') {
-    return `${label} must be a whole number`;
+    return `${label} ${i18nLang.Fields.Components.Integer.Views.Field.MustBeAWholeNumber}`;
   }
 
   // if we recieve null initially on the item view and the current value is null,
@@ -156,10 +157,10 @@ function validate(
   }
   if (typeof val === 'number') {
     if (val < validation.min) {
-      return `${label} must be greater than or equal to ${validation.min}`;
+      return `${label} ${i18nLang.Fields.Components.Integer.Views.Field.MustBeGreaterThanOrEqualTo} ${validation.min}`;
     }
     if (val > validation.max) {
-      return `${label} must be less than or equal to ${validation.max}`;
+      return `${label} ${i18nLang.Fields.Components.Integer.Views.Field.MustBeLessThanOrEqualTo} ${validation.max}`;
     }
   }
 
@@ -248,35 +249,35 @@ export const controller = (
       },
       types: {
         is: {
-          label: 'Is exactly',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsExactly,
           initialValue: '',
         },
         not: {
-          label: 'Is not exactly',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsNotExactly,
           initialValue: '',
         },
         gt: {
-          label: 'Is greater than',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsGreaterThen,
           initialValue: '',
         },
         lt: {
-          label: 'Is less than',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsLessThan,
           initialValue: '',
         },
         gte: {
-          label: 'Is greater than or equal to',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsGreaterThanOrEqualTo,
           initialValue: '',
         },
         lte: {
-          label: 'Is less than or equal to',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsLessThanOrEqualTo,
           initialValue: '',
         },
         in: {
-          label: 'Is one of',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsOneOf,
           initialValue: '',
         },
         not_in: {
-          label: 'Is not one of',
+          label: i18nLang.Fields.Components.Integer.Views.Field.IsNotOneOf,
           initialValue: '',
         },
       },

@@ -11,6 +11,7 @@ import {
   FieldProps,
 } from '../../../../types';
 import { CellContainer } from '../../../../admin-ui/components';
+import { i18nLang } from '../../../../lang/main';
 
 export const Field = ({ field, value, onChange, autoFocus }: FieldProps<typeof controller>) => {
   const { fields, typography, spacing } = useTheme();
@@ -47,7 +48,11 @@ export const Cell: CellComponent = ({ item, field }) => {
   return (
     <CellContainer>
       <Checkbox disabled checked={value} size="small">
-        <span css={{}}>{value ? 'True' : 'False'}</span>
+        <span css={{}}>
+          {value
+            ? i18nLang.Fields.Components.Checkbox.Views.Index.True
+            : i18nLang.Fields.Components.Checkbox.Views.Index.False}
+        </span>
       </Checkbox>
     </CellContainer>
   );
@@ -94,11 +99,11 @@ export const controller = (
       },
       types: {
         is: {
-          label: 'is',
+          label: i18nLang.Fields.Components.Checkbox.Views.Index.Is,
           initialValue: true,
         },
         not: {
-          label: 'is not',
+          label: i18nLang.Fields.Components.Checkbox.Views.Index.IsNot,
           initialValue: true,
         },
       },

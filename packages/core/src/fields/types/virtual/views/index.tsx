@@ -3,6 +3,7 @@
 
 import { jsx } from '@keystone-ui/core';
 import { FieldContainer, FieldDescription, FieldLabel } from '@keystone-ui/fields';
+import { i18nLang } from '../../../../lang/main';
 import {
   CardValueComponent,
   CellComponent,
@@ -35,7 +36,9 @@ export const CardValue: CardValueComponent = ({ item, field }) => {
   );
 };
 
-const createViewValue = Symbol('create view virtual field value');
+const createViewValue = Symbol(
+  i18nLang.Fields.Components.Virtual.Views.Index.CreateViewVirtualFieldValue
+);
 
 export const controller = (
   config: FieldControllerConfig<{ query: string }>

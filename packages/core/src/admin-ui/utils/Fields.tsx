@@ -4,6 +4,7 @@ import { jsx, Stack } from '@keystone-ui/core';
 import { memo, useMemo } from 'react';
 import { FieldMeta } from '../../types';
 import { Value } from '.';
+import { i18nLang } from '../../lang/main';
 
 type RenderFieldProps = {
   field: FieldMeta;
@@ -81,7 +82,7 @@ export function Fields({
   return (
     <Stack gap="xlarge">
       {renderedFields}
-      {renderedFields.length === 0 && 'There are no fields that you can read or edit'}
+      {renderedFields.length === 0 && i18nLang.AdminUIUtils.Fields.ThereAreNoFieldsThatYouCanReadOrEdit}
     </Stack>
   );
 }

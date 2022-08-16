@@ -19,6 +19,7 @@ import {
 } from '../../../../types';
 import { CellContainer, CellLink } from '../../../../admin-ui/components';
 import { useFormattedInput } from '../../integer/views/utils';
+import { i18nLang } from '../../../../lang/main';
 import {
   constructTimestamp,
   deconstructTimestamp,
@@ -149,7 +150,12 @@ export const Field = ({
           typeof field.fieldMeta.defaultValue !== 'string' &&
           field.fieldMeta.defaultValue?.kind === 'now') ||
           field.fieldMeta.updatedAt) && (
-          <Text>When this item is saved, this field will be set to the current date and time</Text>
+          <Text>
+            {
+              i18nLang.Fields.Components.Timestamp.Views.Index
+                .WhenThisItemIsSavedThisFieldWillBeSetToTheCurrentDateAndTime
+            }
+          </Text>
         )}
       </Stack>
     </FieldContainer>
@@ -193,14 +199,19 @@ function validate(
   }
 
   if (hasDateValue && !hasTimeValue) {
-    return { time: `${label} requires a time to be provided` };
+    return {
+      time: `${label} ${i18nLang.Fields.Components.Timestamp.Views.Index.RequiresATimeToBeProvided}`,
+    };
   }
   const timeError =
     typeof val.timeValue === 'string'
-      ? `${label} requires a valid time in the format hh:mm`
+      ? `${label} ${i18nLang.Fields.Components.Timestamp.Views.Index.RequiresAValidTimeInTheFormatHHMM}`
       : undefined;
   if (hasTimeValue && !hasDateValue) {
-    return { date: `${label} requires a date to be selected`, time: timeError };
+    return {
+      date: `${label} ${i18nLang.Fields.Components.Timestamp.Views.Index.RequiresADateToBeSelected}`,
+      time: timeError,
+    };
   }
 
   if (timeError) {

@@ -10,6 +10,7 @@ import {
 import { graphql } from '../../..';
 import { assertCreateIsNonNullAllowed, assertReadIsNonNullAllowed } from '../../non-null-graphql';
 import { resolveView } from '../../resolve-view';
+import { i18nLang } from '../../../lang/main';
 
 export type CheckboxFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> & {
@@ -53,7 +54,9 @@ export const checkbox =
           }),
           resolve(val) {
             if (val === null) {
-              throw userInputError('Checkbox fields cannot be set to null');
+              throw userInputError(
+                i18nLang.Fields.Components.Checkbox.Index.CheckboxFieldsCannotBeSetToNull
+              );
             }
             return val ?? defaultValue;
           },
@@ -62,7 +65,9 @@ export const checkbox =
           arg: graphql.arg({ type: graphql.Boolean }),
           resolve(val) {
             if (val === null) {
-              throw userInputError('Checkbox fields cannot be set to null');
+              throw userInputError(
+                i18nLang.Fields.Components.Checkbox.Index.CheckboxFieldsCannotBeSetToNull
+              );
             }
             return val;
           },

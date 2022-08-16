@@ -12,6 +12,7 @@ import { GraphQLErrorNotice } from '../../../../admin-ui/components';
 import { ListMeta } from '../../../../types';
 import { useCreateItem } from '../../../../admin-ui/utils/useCreateItem';
 import { BaseToolbar, ColumnLayout, ItemPageHeader } from '../ItemPage/common';
+import { i18nLang } from '../../../../lang/main';
 
 function CreatePageForm(props: { list: ListMeta }) {
   const createItem = useCreateItem(props.list);
@@ -42,7 +43,7 @@ function CreatePageForm(props: { list: ListMeta }) {
             weight="bold"
             tone="active"
           >
-            Create {props.list.singular}
+            {i18nLang.AdminUIPages.ListPage.CreateItemPage.Create} {props.list.singular}
           </Button>
         </BaseToolbar>
       </form>
@@ -61,8 +62,8 @@ function CreateItemPage(props: CreateItemPageProps) {
 
   return (
     <PageContainer
-      title={`Create ${list.singular}`}
-      header={<ItemPageHeader list={list} label="Create" />}
+      title={`${i18nLang.AdminUIPages.ListPage.CreateItemPage.Create} ${list.singular}`}
+      header={<ItemPageHeader list={list} label={i18nLang.AdminUIPages.ListPage.CreateItemPage.Create} />}
     >
       <ColumnLayout>
         <Box>
@@ -76,7 +77,7 @@ function CreateItemPage(props: CreateItemPageProps) {
               }
             />
           )}
-          {createViewFieldModes.state === 'loading' && <LoadingDots label="Loading create form" />}
+          {createViewFieldModes.state === 'loading' && <LoadingDots label={i18nLang.AdminUIPages.ListPage.CreateItemPage.LoadingCreateForm} />}
           <CreatePageForm list={list} />
         </Box>
       </ColumnLayout>

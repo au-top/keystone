@@ -20,40 +20,45 @@ import {
   FieldProps,
 } from '../../../../types';
 import { CellContainer } from '../../../../admin-ui/components';
+import { i18nLang } from '../../../../lang/main';
 
 function validate(value: Value, validation: Validation, fieldLabel: string): string | undefined {
   if (value.kind === 'initial' && (value.isSet === null || value.isSet === true)) {
     return undefined;
   }
   if (value.kind === 'initial' && validation?.isRequired) {
-    return `${fieldLabel} is required`;
+    return `${fieldLabel} ${i18nLang.Fields.Components.Password.Views.Index.IsRequired}`;
   }
   if (value.kind === 'editing' && value.confirm !== value.value) {
-    return `The passwords do not match`;
+    return `${i18nLang.Fields.Components.Password.Views.Index.ThePasswordsDoNotMatch}`;
   }
   if (value.kind === 'editing') {
     const val = value.value;
     if (val.length < validation.length.min) {
       if (validation.length.min === 1) {
-        return `${fieldLabel} must not be empty`;
+        return `${fieldLabel} ${i18nLang.Fields.Components.Password.Views.Index.MustNotBeEmpty}`;
       }
-      return `${fieldLabel} must be at least ${validation.length.min} characters long`;
+      return `${fieldLabel} ${i18nLang.Fields.Components.Password.Views.Index.MustBeAtLeast} ${validation.length.min} ${i18nLang.Fields.Components.Password.Views.Index.CharactersLong}`;
     }
     if (validation.length.max !== null && val.length > validation.length.max) {
-      return `${fieldLabel} must be no longer than ${validation.length.max} characters`;
+      return `${fieldLabel} ${i18nLang.Fields.Components.Password.Views.Index.MustBeNoLongerThan} ${validation.length.max} ${i18nLang.Fields.Components.Password.Views.Index.Characters}`;
     }
     if (validation.match && !validation.match.regex.test(val)) {
       return validation.match.explanation;
     }
     if (validation.rejectCommon && dumbPasswords.check(val)) {
-      return `${fieldLabel} is too common and is not allowed`;
+      return `${fieldLabel} ${i18nLang.Fields.Components.Password.Views.Index.IsTooCommonAndIsNotAllowed}`;
     }
   }
   return undefined;
 }
 
 function isSetText(isSet: null | undefined | boolean) {
-  return isSet == null ? 'Access Denied' : isSet ? 'Is set' : 'Is not set';
+  return isSet == null
+    ? `${i18nLang.Fields.Components.Password.Views.Index.AccessDenied}`
+    : isSet
+    ? `${i18nLang.Fields.Components.Password.Views.Index.IsSet}`
+    : `${i18nLang.Fields.Components.Password.Views.Index.IsNotSet}`;
 }
 
 export const Field = ({
@@ -95,7 +100,9 @@ export const Field = ({
               });
             }}
           >
-            {value.isSet ? 'Change Password' : 'Set Password'}
+            {value.isSet
+              ? `${i18nLang.Fields.Components.Password.Views.Index.ChangePassword}`
+              : `${i18nLang.Fields.Components.Password.Views.Index.SetPassword}`}
           </Button>
           {validation}
         </Fragment>
@@ -103,7 +110,7 @@ export const Field = ({
         <Stack gap="small">
           <div css={{ display: 'flex' }}>
             <VisuallyHidden as="label" htmlFor={`${field.path}-new-password`}>
-              New Password
+              {`${i18nLang.Fields.Components.Password.Views.Index.NewPassword}`}
             </VisuallyHidden>
             <TextInput
               id={`${field.path}-new-password`}
@@ -111,7 +118,7 @@ export const Field = ({
               invalid={validationMessage !== undefined}
               type={inputType}
               value={value.value}
-              placeholder="New Password"
+              placeholder={i18nLang.Fields.Components.Password.Views.Index.NewPassword}
               onChange={event => {
                 onChange({
                   ...value,
@@ -124,14 +131,14 @@ export const Field = ({
             />
             <Spacer />
             <VisuallyHidden as="label" htmlFor={`${field.path}-confirm-password`}>
-              Confirm Password
+              {i18nLang.Fields.Components.Password.Views.Index.ConfirmPassword}
             </VisuallyHidden>
             <TextInput
               id={`${field.path}-confirm-password`}
               invalid={validationMessage !== undefined}
               type={inputType}
               value={value.confirm}
-              placeholder="Confirm Password"
+              placeholder={i18nLang.Fields.Components.Password.Views.Index.ConfirmPassword}
               onChange={event => {
                 onChange({
                   ...value,
@@ -148,7 +155,11 @@ export const Field = ({
                 setShowInputValue(!showInputValue);
               }}
             >
-              <VisuallyHidden>{showInputValue ? 'Hide Text' : 'Show Text'}</VisuallyHidden>
+              <VisuallyHidden>
+                {showInputValue
+                  ? `${i18nLang.Fields.Components.Password.Views.Index.HideText}`
+                  : `${i18nLang.Fields.Components.Password.Views.Index.ShowText}`}
+              </VisuallyHidden>
               {showInputValue ? <EyeOffIcon /> : <EyeIcon />}
             </Button>
             <Spacer />
@@ -270,7 +281,10 @@ export const controller = (
                   onChange={value => {
                     props.onChange(!!value);
                   }}
-                  segments={['Is Not Set', 'Is Set']}
+                  segments={[
+                    `${i18nLang.Fields.Components.Password.Views.Index.IsNotSet}`,
+                    `${i18nLang.Fields.Components.Password.Views.Index.IsSet}`,
+                  ]}
                 />
               );
             },
@@ -278,11 +292,13 @@ export const controller = (
               return { [config.path]: { isSet: value } };
             },
             Label({ value }) {
-              return value ? 'is set' : 'is not set';
+              return value
+                ? `${i18nLang.Fields.Components.Password.Views.Index.IsSet}`
+                : `${i18nLang.Fields.Components.Password.Views.Index.IsNotSet}`;
             },
             types: {
               is_set: {
-                label: 'Is Set',
+                label: `${i18nLang.Fields.Components.Password.Views.Index.IsSet}`,
                 initialValue: true,
               },
             },

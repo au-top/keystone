@@ -12,6 +12,7 @@ import {
   FieldProps,
 } from '../../../../types';
 import { CellContainer, CellLink } from '../../../../admin-ui/components';
+import { i18nLang } from '../../../../lang/main';
 
 export type Value =
   | { kind: 'create'; value: string | null }
@@ -80,7 +81,7 @@ function validate(
   }
 
   if (fieldMeta.isRequired && value.value === null) {
-    return `${label} is required`;
+    return `${label} ${i18nLang.Fields.Components.CalendarDay.Views.Index.IsRequired}`;
   }
   return undefined;
 }

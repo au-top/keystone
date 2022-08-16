@@ -6,6 +6,7 @@ import { useKeystone } from '..';
 import { ListMeta } from '../../types';
 import { usePreventNavigation } from './usePreventNavigation';
 import { Fields, Value } from '.';
+import { i18nLang } from '../../lang/main';
 
 type ValueWithoutServerSideErrors = { [key: string]: { kind: 'value'; value: any } };
 
@@ -22,10 +23,10 @@ export function useCreateItem(list: ListMeta): CreateItemHookResult {
   const { createViewFieldModes } = useKeystone();
 
   const [createItem, { loading, error, data: returnedData }] = useMutation(
-    gql`mutation($data: ${list.gqlNames.createInputName}!) {
-      item: ${list.gqlNames.createMutationName}(data: $data) {
+    gql`mutation($data: ${ list.gqlNames.createInputName }!) {
+      item: ${ list.gqlNames.createMutationName }(data: $data) {
         id
-        label: ${list.labelField}
+        label: ${ list.labelField }
     }
   }`
   );
@@ -111,7 +112,7 @@ export function useCreateItem(list: ListMeta): CreateItemHookResult {
       const label = outputData.item.label || outputData.item.id;
       toasts.addToast({
         title: label,
-        message: 'Created Successfully',
+        message: i18nLang.AdminUIUtils.UseCreateItem.CreatedSuccessfully,
         tone: 'positive',
       });
       return outputData.item;

@@ -14,6 +14,7 @@ import { useRouter } from '@keystone-6/core/admin-ui/router';
 import { LoadingDots } from '@keystone-ui/loading';
 import { SigninContainer } from '../components/SigninContainer';
 import { useRedirect } from '../lib/useFromRedirect';
+import { i18nLang, K6Config } from '@keystone-6/core';
 
 type SigninPageProps = {
   identityField: string;
@@ -71,13 +72,15 @@ export const SigninPage = ({
   if (rawKeystone.authenticatedItem.state === 'authenticated') {
     return (
       <Center fillView>
-        <LoadingDots label="Loading page" size="large" />
+        <LoadingDots label={i18nLang.Auth.Pages.SigninPage.LoadingPage} size="large" />
       </Center>
     );
   }
 
   return (
-    <SigninContainer title="Keystone - Sign In">
+    <SigninContainer
+      title={K6Config.DefineConfig.AppName + ' - ' + i18nLang.Auth.Pages.SigninPage.Sign_In}
+    >
       <Stack
         gap="xlarge"
         as="form"
@@ -103,7 +106,7 @@ export const SigninPage = ({
           }
         }}
       >
-        <H1>Sign In</H1>
+        <H1>{i18nLang.Auth.Pages.SigninPage.Sign_In}</H1>
         {error && (
           <Notice title="Error" tone="negative">
             {error.message}
@@ -146,10 +149,10 @@ export const SigninPage = ({
         {mode === 'forgot password' ? (
           <Stack gap="medium" across>
             <Button type="submit" weight="bold" tone="active">
-              Log reset link
+              {i18nLang.Auth.Pages.SigninPage.LogResetLink}
             </Button>
             <Button weight="none" tone="active" onClick={() => setMode('signin')}>
-              Go back
+              {i18nLang.Auth.Pages.SigninPage.GoBack}
             </Button>
           </Stack>
         ) : (
@@ -164,7 +167,7 @@ export const SigninPage = ({
               }
               type="submit"
             >
-              Sign In
+              {i18nLang.Auth.Pages.SigninPage.Sign_In}
             </Button>
             {/* Disabled until we come up with a complete password reset workflow */}
             {/* <Button weight="none" tone="active" onClick={() => setMode('forgot password')}>

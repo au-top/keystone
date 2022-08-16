@@ -8,6 +8,7 @@ import { FieldContainer, FieldDescription, FieldLabel } from '@keystone-ui/field
 
 import { Button } from '@keystone-ui/button';
 import { FieldProps } from '../../../../types';
+import { i18nLang } from '../../../../lang/main';
 import { FileValue } from './index';
 
 export function Field({
@@ -81,15 +82,19 @@ function FileView({
                   {`${value.data.filename}`}
                 </a>
               </Text>
-              <Text size="small">Size: {bytes(value.data.filesize)}</Text>
+              <Text size="small">
+                {i18nLang.Fields.Components.File.Views.Field.Size}: {bytes(value.data.filesize)}
+              </Text>
             </Stack>
           )}
           {value.kind === 'upload' && (
             <Stack padding="xxsmall" gap="xxsmall">
               <Text size="small" paddingBottom="xsmall">
-                File linked, save to complete upload
+                {i18nLang.Fields.Components.File.Views.Field.FileLinkedSaveToCompleteUpload}
               </Text>
-              <Text size="small">Size: {bytes(value.data.file.size)}</Text>
+              <Text size="small">
+                {i18nLang.Fields.Components.File.Views.Field.Size}: {bytes(value.data.file.size)}
+              </Text>
             </Stack>
           )}
           <Stack across gap="small" align="center">
@@ -99,7 +104,7 @@ function FileView({
                 inputRef.current?.click();
               }}
             >
-              Change
+              {i18nLang.Fields.Components.File.Views.Field.Change}
             </Button>
             {value.kind === 'from-server' && (
               <Button
@@ -109,7 +114,7 @@ function FileView({
                   onChange({ kind: 'remove', previous: value });
                 }}
               >
-                Remove
+                {i18nLang.Fields.Components.File.Views.Field.Remove}
               </Button>
             )}
             {value.kind === 'upload' && (
@@ -120,7 +125,7 @@ function FileView({
                   onChange(value.previous);
                 }}
               >
-                Cancel
+                {i18nLang.Fields.Components.File.Views.Field.Cancel}
               </Button>
             )}
             {errorMessage && (
@@ -148,7 +153,7 @@ function FileView({
             inputRef.current?.click();
           }}
         >
-          Upload File
+          {i18nLang.Fields.Components.File.Views.Field.UploadFile}
         </Button>
         {value.kind === 'remove' && value.previous && (
           <Button
@@ -160,7 +165,7 @@ function FileView({
               }
             }}
           >
-            Undo removal
+            {i18nLang.Fields.Components.File.Views.Field.UndoRemoval}
           </Button>
         )}
       </Stack>
@@ -176,6 +181,6 @@ function createErrorMessage(value: FileValue) {
 
 export function validateFile({ validity }: { validity: ValidityState }): string | undefined {
   if (!validity.valid) {
-    return 'Something went wrong, please reload and try again.';
+    return `${i18nLang.Fields.Components.File.Views.Field.SomethingWentWrongPleaseReloadAndTryAgain}`;
   }
 }

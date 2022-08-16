@@ -12,6 +12,7 @@ import { PageContainer, HEADER_HEIGHT } from '../../../../admin-ui/components/Pa
 import { gql, useQuery } from '../../../../admin-ui/apollo';
 import { useKeystone, useList } from '../../../../admin-ui/context';
 import { Link, LinkProps } from '../../../../admin-ui/router';
+import { i18nLang } from '../../../../lang/main';
 
 type ListCardProps = {
   listKey: string;
@@ -57,15 +58,24 @@ const ListCard = ({ listKey, count, hideCreate }: ListCardProps) => {
         ) : count.type === 'error' ? (
           count.message
         ) : count.type === 'loading' ? (
-          <LoadingDots label={`Loading count of ${list.plural}`} size="small" tone="passive" />
+          <LoadingDots
+            label={`${i18nLang.AdminUIPages.HomePage.LoadingCountOf} ${list.plural}`}
+            size="small"
+            tone="passive"
+          />
         ) : (
-          'No access'
+          i18nLang.AdminUIPages.HomePage.NoAccess
         )}
       </Link>
       {hideCreate === false && (
-        <CreateButton title={`Create ${list.singular}`} href={`/${list.path}/create`}>
+        <CreateButton
+          title={`${i18nLang.AdminUIPages.HomePage.Create} ${list.singular}`}
+          href={`/${list.path}/create`}
+        >
           <PlusIcon size="large" />
-          <VisuallyHidden>Create {list.singular}</VisuallyHidden>
+          <VisuallyHidden>
+            {i18nLang.AdminUIPages.HomePage.Create} {list.singular}
+          </VisuallyHidden>
         </CreateButton>
       )}
     </div>
@@ -129,10 +139,14 @@ export const HomePage = () => {
   const dataGetter = makeDataGetter(data, error?.graphQLErrors);
 
   return (
-    <PageContainer header={<Heading type="h3">Dashboard</Heading>}>
+    <PageContainer header={<Heading type="h3"> {i18nLang.DefineConst.Dashboard} </Heading>}>
       {visibleLists.state === 'loading' ? (
         <Center css={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
-          <LoadingDots label="Loading lists" size="large" tone="passive" />
+          <LoadingDots
+            label={i18nLang.AdminUIPages.HomePage.LoadingLists}
+            size="large"
+            tone="passive"
+          />
         </Center>
       ) : (
         <Inline

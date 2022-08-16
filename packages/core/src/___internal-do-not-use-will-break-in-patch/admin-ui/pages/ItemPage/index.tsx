@@ -42,6 +42,7 @@ import { PageContainer, HEADER_HEIGHT } from '../../../../admin-ui/components/Pa
 import { GraphQLErrorNotice } from '../../../../admin-ui/components/GraphQLErrorNotice';
 import { usePreventNavigation } from '../../../../admin-ui/utils/usePreventNavigation';
 import { BaseToolbar, ColumnLayout, ItemPageHeader } from './common';
+import { i18nLang } from '../../../../lang/main';
 
 type ItemPageProps = {
   listKey: string;
@@ -126,7 +127,7 @@ function ItemForm({
         const error = errors?.find(x => x.path?.length === 1);
         if (error) {
           toasts.addToast({
-            title: 'Failed to update item',
+            title: i18nLang.AdminUIPages.ItemPage.FailedToUpdateItem,
             tone: 'negative',
             message: error.message,
           });
@@ -134,7 +135,7 @@ function ItemForm({
           toasts.addToast({
             // title: data.item[list.labelField] || data.item.id,
             tone: 'positive',
-            title: 'Saved successfully',
+            title: i18nLang.AdminUIPages.ItemPage.SavedSuccessfully,
             // message: 'Saved successfully',
           });
         }
@@ -223,22 +224,22 @@ function DeleteButton({
           setIsOpen(true);
         }}
       >
-        Delete
+        {i18nLang.AdminUIPages.ItemPage.Delete}
       </Button>
       <AlertDialog
         // TODO: change the copy in the title and body of the modal
-        title="Delete Confirmation"
+        title={i18nLang.AdminUIPages.ItemPage.DeleteConfirmation}
         isOpen={isOpen}
         tone="negative"
         actions={{
           confirm: {
-            label: 'Delete',
+            label: i18nLang.AdminUIPages.ItemPage.Delete,
             action: async () => {
               try {
                 await deleteItem();
               } catch (err: any) {
                 return toasts.addToast({
-                  title: `Failed to delete ${list.singular} item: ${itemLabel}`,
+                  title: `${i18nLang.AdminUIPages.ItemPage.FailedToDelete} ${list.singular} ${i18nLang.AdminUIPages.ItemPage.Item}: ${itemLabel}`,
                   message: err.message,
                   tone: 'negative',
                 });
@@ -246,7 +247,7 @@ function DeleteButton({
               router.push(`/${list.path}`);
               return toasts.addToast({
                 title: itemLabel,
-                message: `Deleted ${list.singular} item successfully`,
+                message: `${i18nLang.AdminUIPages.ItemPage.Deleted} ${list.singular} ${i18nLang.AdminUIPages.ItemPage.ItemSuccessfully}`,
                 tone: 'positive',
               });
             },
@@ -260,7 +261,7 @@ function DeleteButton({
           },
         }}
       >
-        Are you sure you want to delete <strong>{itemLabel}</strong>?
+        {i18nLang.AdminUIPages.ItemPage.AreYouSureYouWantToDelete} <strong>{itemLabel}</strong>?
       </AlertDialog>
     </Fragment>
   );
@@ -352,7 +353,7 @@ const ItemPage = ({ listKey }: ItemPageProps) => {
           list={list}
           label={
             loading
-              ? 'Loading...'
+              ? `${i18nLang.AdminUIPages.ItemPage.Loading}...`
               : (data && data.item && (data.item[list.labelField] || data.item.id)) || id
           }
         />
@@ -360,7 +361,11 @@ const ItemPage = ({ listKey }: ItemPageProps) => {
     >
       {loading ? (
         <Center css={{ height: `calc(100vh - ${HEADER_HEIGHT}px)` }}>
-          <LoadingDots label="Loading item data" size="large" tone="passive" />
+          <LoadingDots
+            label={i18nLang.AdminUIPages.ItemPage.LoadingItemData}
+            size="large"
+            tone="passive"
+          />
         </Center>
       ) : metaQueryErrors ? (
         <Box marginY="xlarge">
@@ -377,7 +382,8 @@ const ItemPage = ({ listKey }: ItemPageProps) => {
                 />
               ) : (
                 <Notice tone="negative">
-                  The item with id "{id}" could not be found or you don't have access to it.
+                  {i18nLang.AdminUIPages.ItemPage.TheItemWithId}"{id}"{' '}
+                  {i18nLang.AdminUIPages.ItemPage.CouldNotBeFoundOrYouDonTHaveAccessToIt}
                 </Notice>
               )}
             </Box>
@@ -391,7 +397,7 @@ const ItemPage = ({ listKey }: ItemPageProps) => {
                 itemGetter={dataGetter.get('item') as DataGetter<ItemData>}
               />
               <StickySidebar>
-                <FieldLabel>Item ID</FieldLabel>
+                <FieldLabel>{i18nLang.AdminUIPages.ItemPage.ItemID}</FieldLabel>
                 <div
                   css={{
                     display: 'flex',
@@ -455,14 +461,14 @@ const Toolbar = memo(function Toolbar({
         tone="active"
         onClick={onSave}
       >
-        Save changes
+        {i18nLang.AdminUIPages.ItemPage.SaveChanges}
       </Button>
       <Stack align="center" across gap="small">
         {hasChangedFields ? (
           <ResetChangesButton onReset={onReset} />
         ) : (
           <Text weight="medium" paddingX="large" color="neutral600">
-            No changes
+            {i18nLang.AdminUIPages.ItemPage.NoChanges}
           </Text>
         )}
         {deleteButton}
@@ -482,7 +488,7 @@ function ResetChangesButton(props: { onReset: () => void }) {
           setConfirmModalOpen(true);
         }}
       >
-        Reset changes
+        {i18nLang.AdminUIPages.ItemPage.ResetChanges}
       </Button>
       <AlertDialog
         actions={{
@@ -496,7 +502,7 @@ function ResetChangesButton(props: { onReset: () => void }) {
           },
         }}
         isOpen={isConfirmModalOpen}
-        title="Are you sure you want to reset changes?"
+        title={i18nLang.AdminUIPages.ItemPage.AreYouSureYouWantToResetChanges + '?'}
         tone="negative"
       >
         {null}

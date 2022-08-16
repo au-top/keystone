@@ -14,6 +14,7 @@ import { PopoverDialog, usePopover } from '@keystone-ui/popover';
 import { FieldMeta, JSONValue } from '../../../../types';
 import { useList } from '../../../../admin-ui/context';
 import { useRouter } from '../../../../admin-ui/router';
+import { i18nLang } from '../../../../lang/main';
 
 type State =
   | { kind: 'selecting-field' }
@@ -63,12 +64,12 @@ export function FilterAdd({
         onClick={() => setOpen(!isOpen)}
       >
         <Box as="span" marginRight="xsmall">
-          Filter List
+          {i18nLang.AdminUIPages.ListPage.FilterAdd.FilterList}
         </Box>
         <ChevronDownIcon size="small" />
       </Button>
       <PopoverDialog
-        aria-label={`Filters options, list of filters to apply to the ${listKey} list`}
+        aria-label={`${i18nLang.AdminUIPages.ListPage.FilterAdd.FiltersOptionsListOfFiltersToApplyToThe} ${listKey} ${i18nLang.AdminUIPages.ListPage.FilterAdd.List}`}
         arrow={arrow}
         isVisible={isOpen}
         {...dialog.props}
@@ -165,7 +166,7 @@ function FilterAddPopoverContent({
               position: 'absolute',
             }}
           >
-            <VisuallyHidden>Back</VisuallyHidden>
+            <VisuallyHidden>{i18nLang.AdminUIPages.ListPage.FilterAdd.Back}</VisuallyHidden>
             <ChevronLeftIcon size="smallish" />
           </button>
         )}
@@ -246,8 +247,8 @@ function FilterAddPopoverContent({
         })()}
       {state.kind == 'filter-value' && (
         <div css={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button type="submit">Apply</Button>
+          <Button onClick={onClose}>{i18nLang.AdminUIPages.ListPage.FilterAdd.Cancel}</Button>
+          <Button type="submit">{i18nLang.AdminUIPages.ListPage.FilterAdd.Apply}</Button>
         </div>
       )}
     </Stack>

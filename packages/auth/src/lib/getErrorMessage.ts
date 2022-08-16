@@ -1,12 +1,14 @@
+import { i18nLang } from '@keystone-6/core';
 import { AuthTokenRedemptionErrorCode } from '../types';
 
 export function getAuthTokenErrorMessage({ code }: { code: AuthTokenRedemptionErrorCode }): string {
   switch (code) {
     case 'FAILURE':
-      return 'Auth token redemption failed.';
+      return i18nLang.Auth.Lib.GetErrorMessage.AuthTokenRedemptionFailed;
     case 'TOKEN_EXPIRED':
-      return 'The auth token provided has expired.';
+      return i18nLang.Auth.Lib.GetErrorMessage.TheAuthTokenProvidedHasExpired;
     case 'TOKEN_REDEEMED':
-      return 'Auth tokens are single use and the auth token provided has already been redeemed.';
+      return i18nLang.Auth.Lib.GetErrorMessage
+        .AuthTokensAreSingleUseAndTheAuthTokenProvidedHasAlreadyBeenRedeemed;
   }
 }

@@ -19,11 +19,17 @@
 
 ## Contents
 
-- [What's new](#whats-new)
+- [Contents](#contents)
+- [What's New](#whats-new)
+  - [Looking for Keystone 5?](#looking-for-keystone-5)
 - [Documentation](#documentation)
-- [Version Control](#version-control)
+- [Enjoying Keystone?](#enjoying-keystone)
+  - [Feedback](#feedback)
+- [Version control](#version-control)
 - [Code of Conduct](#code-of-conduct)
+- [Security](#security)
 - [License](#license)
+- [Add Lang](#add-lang)
 
 ## What's New
 
@@ -78,3 +84,8 @@ For vulnerability reporting, please refer to our [security policy](/SECURITY.md)
 ## License
 
 Copyright (c) 2021 Thinkmill Labs Pty Ltd. Licensed under the MIT License.
+
+
+## Add Lang
+
+see [ADDLANG.md](ADDLANG.md)

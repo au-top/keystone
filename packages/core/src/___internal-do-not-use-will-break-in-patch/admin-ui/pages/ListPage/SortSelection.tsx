@@ -10,6 +10,7 @@ import { ListMeta } from '../../../../types';
 import { useRouter } from '../../../../admin-ui/router';
 import { fieldSelectionOptionsComponents } from './FieldSelection';
 import { useSort } from './useSort';
+import { i18nLang } from '../../../../lang/main';
 
 export function SortSelection({
   list,
@@ -36,9 +37,12 @@ export function SortSelection({
         <span css={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
           {sort
             ? `${list.fields[sort.field].label} ${
-                { ASC: 'ascending', DESC: 'descending' }[sort.direction]
+                {
+                  ASC: i18nLang.AdminUIPages.ListPage.SortSelection.Ascending,
+                  DESC: i18nLang.AdminUIPages.ListPage.SortSelection.Descending,
+                }[sort.direction]
               }`
-            : 'No field'}
+            : i18nLang.AdminUIPages.ListPage.SortSelection.NoField}
           <ChevronDownIcon size="smallish" />
         </span>
       </Button>
@@ -65,7 +69,7 @@ export function SortSelection({
 }
 
 const noFieldOption = {
-  label: 'No field',
+  label: i18nLang.AdminUIPages.ListPage.SortSelection.NoField,
   value: '___________NO_FIELD___________',
 };
 
@@ -85,7 +89,7 @@ function SortSelectionPopoverContent({
     <Stack padding="medium" css={{ minWidth: 320 }} gap="small">
       <div css={{ position: 'relative' }}>
         <Heading textAlign="center" type="h5">
-          Sort
+          {i18nLang.AdminUIPages.ListPage.SortSelection.Sort}
         </Heading>
       </div>
       <Divider />
