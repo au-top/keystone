@@ -72,7 +72,8 @@ export function FieldSelection({
           <Button weight="link" css={{ padding: 4 }} {...triggerProps}>
             <span css={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center' }}>
               {selectedFields.size} {i18nLang.AdminUIPages.ListPage.FieldSelection.Column}
-              {selectedFields.size === 1 ? '' : 's'} <ChevronDownIcon size="smallish" />
+              {selectedFields.size === 1 ? '' : i18nLang.DefineConst.Plural}{' '}
+              <ChevronDownIcon size="smallish" />
             </span>
           </Button>
         );

@@ -20,6 +20,7 @@ const fromAILang: EN_US_Type = {
       LoadingLists: '加载列表',
       NoAccess: '无访问权限',
       LoadingCountOf: '加载计数',
+      Item: '项目',
     },
     ItemPage: {
       NoChanges: '无更改',
@@ -33,7 +34,7 @@ const fromAILang: EN_US_Type = {
       Deleted: '删除',
       ItemSuccessfully: '项目成功',
       FailedToDelete: '无法删除',
-      Item: '物品',
+      Item: '项目',
       Delete: '删除',
       DeleteConfirmation: '删除确认',
       FailedToUpdateItem: '无法更新项目',
@@ -71,8 +72,8 @@ const fromAILang: EN_US_Type = {
         SortedBy: '排序',
         With: '和',
         LoadingItemData: '加载项目数据',
-        No: '不',
-        Found: '成立',
+        No: '无',
+        Found: '存在',
         Delete: '删除',
         DeleteConfirmation: '删除确认',
         FailedToDelete: '无法删除',
@@ -113,7 +114,7 @@ const fromAILang: EN_US_Type = {
     Pagination: {
       PerPage: '每页',
       Showing: '显示',
-      No: '不',
+      No: '无',
       Of: '的',
       $AriaLabel: {
         Pagination: '分页',
@@ -477,6 +478,7 @@ const fromAILang: EN_US_Type = {
   },
   DefineConst: {
     Dashboard: '仪表板',
+    Plural: '',
   },
   Auth: {
     Lib: {

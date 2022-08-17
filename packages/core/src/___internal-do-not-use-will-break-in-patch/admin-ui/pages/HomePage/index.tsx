@@ -53,7 +53,8 @@ const ListCard = ({ listKey, count, hideCreate }: ListCardProps) => {
         <h3 css={{ margin: `0 0 ${spacing.small}px 0` }}>{list.label} </h3>
         {count.type === 'success' ? (
           <span css={{ color: colors.foreground, textDecoration: 'none' }}>
-            {count.count} item{count.count !== 1 ? 's' : ''}
+            {count.count} {i18nLang.AdminUIPages.HomePage.Item}
+            {count.count !== 1 ? i18nLang.DefineConst.Plural : ''}
           </span>
         ) : count.type === 'error' ? (
           count.message

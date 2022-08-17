@@ -17,6 +17,7 @@ export const Lang = {
       LoadingLists: 'Loading lists',
       NoAccess: 'No access',
       LoadingCountOf: 'Loading count of',
+      Item: 'item',
     },
     ItemPage: {
       NoChanges: 'No changes',
@@ -482,6 +483,7 @@ export const Lang = {
   },
   DefineConst: {
     Dashboard: 'Dashboard',
+    Plural: 's',
   },
   Auth: {
     Lib: {
