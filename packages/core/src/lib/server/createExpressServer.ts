@@ -2,7 +2,8 @@ import { createServer, IncomingMessage, Server, ServerResponse } from 'http';
 import cors, { CorsOptions } from 'cors';
 import express from 'express';
 import { GraphQLSchema } from 'graphql';
-import { graphqlUploadExpress } from 'graphql-upload';
+// @ts-ignore
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import { ApolloServer } from 'apollo-server-express';
 import type { KeystoneConfig, CreateContext, SessionStrategy, GraphQLConfig } from '../../types';
 import { createSessionContext } from '../../session';
@@ -100,7 +101,7 @@ export const createExpressServer = async (
           : undefined,
         req,
       });
-    config.server?.extendHttpServer(httpServer, createRequestContext);
+    config.server?.extendHttpServer(httpServer, createRequestContext, graphQLSchema);
   }
 
   if (config.storage) {

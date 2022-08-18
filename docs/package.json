@@ -1,6 +1,6 @@
 {
   "name": "@keystone-6/website",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -16,23 +16,31 @@
     "@emotion/react": "^11.7.1",
     "@emotion/server": "11.10.0",
     "@emotion/weak-memoize": "^0.3.0",
-    "@keystone-6/fields-document": "^4.0.0",
-    "@keystone-ui/core": "^5.0.0",
-    "@keystone-ui/toast": "^6.0.0",
+    "@keystone-6/fields-document": "^4.1.0",
+    "@keystone-ui/core": "^5.0.1",
+    "@keystone-ui/toast": "^6.0.1",
+    "@markdoc/markdoc": "^0.1.5",
     "@mdx-js/loader": "next",
     "@mdx-js/react": "next",
     "@next/mdx": "^12.0.7",
     "@preconstruct/next": "^4.0.0",
     "@sindresorhus/slugify": "^1.1.2",
     "@types/gtag.js": "^0.0.10",
+    "@types/js-yaml": "^4.0.5",
+    "@types/markdown-it": "^12.2.3",
     "@types/mdx-js__react": "^1.5.5",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "classnames": "^2.3.1",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.26.0",
+    "dedent": "^0.7.0",
+    "emery": "^1.4.1",
     "facepaint": "^1.2.1",
+    "globby": "^11.0.4",
+    "js-yaml": "^4.1.0",
     "lodash.debounce": "^4.0.8",
+    "markdown-it": "^13.0.1",
     "next": "^12.2.4",
     "next-compose-plugins": "^2.2.1",
     "prism-react-renderer": "^1.2.1",
@@ -47,9 +55,6 @@
     "next-sitemap": "^3.0.0",
     "start-server-and-test": "^1.14.0",
     "typescript": "^4.7.4"
-  },
-  "engines": {
-    "node": "^14.15 || ^16.13"
   },
   "repository": "https://github.com/keystonejs/keystone/tree/main/docs"
 }
