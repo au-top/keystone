@@ -17,8 +17,13 @@
 [![slack](https://img.shields.io/badge/chat-on%20slack-blue.svg)](https://community.keystonejs.com/)
 ![Twitter Follow](https://img.shields.io/twitter/follow/KeystoneJS?color=Blue&label=Follow%20KeystoneJS&logo=Twitter&logoColor=Blue&style=social)
 
+## Add Lang
+
+see [ADDLANG.md](ADDLANG.md)
+
 ## Contents
 
+- [Add Lang](#add-lang)
 - [Contents](#contents)
 - [Usage & Documentation](#usage--documentation)
   - [Looking for Keystone 5?](#looking-for-keystone-5)
@@ -29,7 +34,6 @@
 - [Code of Conduct](#code-of-conduct)
 - [Security](#security)
 - [License](#license)
-- [Add Lang](#add-lang)
 
 ## Usage & Documentation
 
@@ -88,6 +92,3 @@ For vulnerability reporting, please refer to our [security policy](/SECURITY.md)
 
 Copyright (c) 2022 Thinkmill Labs Pty Ltd. Licensed under the MIT License.
 
-## Add Lang
-
-see [ADDLANG.md](ADDLANG.md)
